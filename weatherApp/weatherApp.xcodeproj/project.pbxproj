@@ -6,12 +6,17 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CAAB98822F5851AA008D4548 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAAB98812F5851AA008D4548 /* ViewController.xib */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
-		CAAB98652F58457E008D4548 /* weatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAAB98652F58457E008D4548 /* weatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = weatherApp.app; path = "/Users/aisha/Documents/GitHub/WeatherAppMock/weatherApp/build/Debug-iphoneos/weatherApp.app"; sourceTree = "<absolute>"; };
+		CAAB98812F5851AA008D4548 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		CAAB98772F58457F008D4548 /* Exceptions for "weatherApp" folder in "weatherApp" target */ = {
+		CA20D90D2F585D8600866495 /* Exceptions for "weatherApp" folder in "weatherApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -24,7 +29,7 @@
 		CAAB98672F58457E008D4548 /* weatherApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				CAAB98772F58457F008D4548 /* Exceptions for "weatherApp" folder in "weatherApp" target */,
+				CA20D90D2F585D8600866495 /* Exceptions for "weatherApp" folder in "weatherApp" target */,
 			);
 			path = weatherApp;
 			sourceTree = "<group>";
@@ -45,17 +50,9 @@
 		CAAB985C2F58457E008D4548 = {
 			isa = PBXGroup;
 			children = (
+				CAAB98812F5851AA008D4548 /* ViewController.xib */,
 				CAAB98672F58457E008D4548 /* weatherApp */,
-				CAAB98662F58457E008D4548 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		CAAB98662F58457E008D4548 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CAAB98652F58457E008D4548 /* weatherApp.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -108,7 +105,7 @@
 			mainGroup = CAAB985C2F58457E008D4548;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = CAAB98662F58457E008D4548 /* Products */;
+			productRefGroup = CAAB985C2F58457E008D4548;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -122,6 +119,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAAB98822F5851AA008D4548 /* ViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,8 +146,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = weatherApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -179,8 +175,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = weatherApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
