@@ -9,9 +9,11 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var topCard: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        topCard.layer.cornerRadius = 24
+        topCard.clipsToBounds = true
     }
 
 
