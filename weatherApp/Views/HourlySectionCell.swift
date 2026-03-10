@@ -1,18 +1,15 @@
 //
-//  CurrentWeatherCell.swift
+//  HourlySectionCell.swift
 //  weatherApp
 //
-//  Created by Aisha Hudasi on 20/09/1447 AH.
+//  Created by Aisha Hudasi on 21/09/1447 AH.
 //
 
 import UIKit
 
-class CurrentWeatherCell: UITableViewCell {
+class HourlySectionCell: UITableViewCell {
 
-    @IBOutlet weak var weatherImage: UIImageView!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var tempLabel: UILabel!
-    @IBOutlet weak var weatherLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

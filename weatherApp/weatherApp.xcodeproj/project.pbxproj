@@ -6,38 +6,40 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		CA1D8F172F5DAABD000CE914 /* HourlyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA1D8F162F5DAABD000CE914 /* HourlyCell.xib */; };
-		CA1D8F3F2F5E6B7B000CE914 /* CurrentWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1D8F3E2F5E6B7B000CE914 /* CurrentWeatherCell.swift */; };
-		CA2C84052F5EF23D0076143E /* CurrentWeatherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA2C84042F5EF23D0076143E /* CurrentWeatherCell.xib */; };
-		CAAB98822F5851AA008D4548 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAAB98812F5851AA008D4548 /* ViewController.xib */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		CA1D8F162F5DAABD000CE914 /* HourlyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HourlyCell.xib; sourceTree = "<group>"; };
-		CA1D8F3E2F5E6B7B000CE914 /* CurrentWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherCell.swift; sourceTree = "<group>"; };
-		CA2C83F72F5EE2E30076143E /* weatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CA2C84042F5EF23D0076143E /* CurrentWeatherCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrentWeatherCell.xib; sourceTree = "<group>"; };
-		CAAB98812F5851AA008D4548 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		CA6FA85E2F5FCD5500E20C59 /* weatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA6FA8612F5FCF4100E20C59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		CA20D90D2F585D8600866495 /* Exceptions for "weatherApp" folder in "weatherApp" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = CAAB98642F58457E008D4548 /* weatherApp */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		CAAB98672F58457E008D4548 /* weatherApp */ = {
+		CA2C840A2F5FB7BB0076143E /* Models */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				CA20D90D2F585D8600866495 /* Exceptions for "weatherApp" folder in "weatherApp" target */,
-			);
-			path = weatherApp;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CA2C840B2F5FB7D80076143E /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CA2C840C2F5FB8310076143E /* Controllers */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CA2C840D2F5FB8560076143E /* Services */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CA2C840E2F5FB87F0076143E /* Resources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CA2C84102F5FB8910076143E /* APP */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = APP;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -56,12 +58,14 @@
 		CAAB985C2F58457E008D4548 = {
 			isa = PBXGroup;
 			children = (
-				CA1D8F162F5DAABD000CE914 /* HourlyCell.xib */,
-				CAAB98812F5851AA008D4548 /* ViewController.xib */,
-				CA1D8F3E2F5E6B7B000CE914 /* CurrentWeatherCell.swift */,
-				CA2C84042F5EF23D0076143E /* CurrentWeatherCell.xib */,
-				CAAB98672F58457E008D4548 /* weatherApp */,
-				CA2C83F72F5EE2E30076143E /* weatherApp.app */,
+				CA2C84102F5FB8910076143E /* APP */,
+				CA2C840E2F5FB87F0076143E /* Resources */,
+				CA2C840D2F5FB8560076143E /* Services */,
+				CA2C840C2F5FB8310076143E /* Controllers */,
+				CA2C840B2F5FB7D80076143E /* Views */,
+				CA2C840A2F5FB7BB0076143E /* Models */,
+				CA6FA85E2F5FCD5500E20C59 /* weatherApp.app */,
+				CA6FA8612F5FCF4100E20C59 /* Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,13 +85,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				CAAB98672F58457E008D4548 /* weatherApp */,
+				CA2C840A2F5FB7BB0076143E /* Models */,
+				CA2C840B2F5FB7D80076143E /* Views */,
+				CA2C840C2F5FB8310076143E /* Controllers */,
+				CA2C840D2F5FB8560076143E /* Services */,
+				CA2C840E2F5FB87F0076143E /* Resources */,
+				CA2C84102F5FB8910076143E /* APP */,
 			);
 			name = weatherApp;
 			packageProductDependencies = (
 			);
 			productName = weatherApp;
-			productReference = CA2C83F72F5EE2E30076143E /* weatherApp.app */;
+			productReference = CA6FA85E2F5FCD5500E20C59 /* weatherApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -129,9 +138,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA1D8F172F5DAABD000CE914 /* HourlyCell.xib in Resources */,
-				CA2C84052F5EF23D0076143E /* CurrentWeatherCell.xib in Resources */,
-				CAAB98822F5851AA008D4548 /* ViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,7 +148,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA1D8F3F2F5E6B7B000CE914 /* CurrentWeatherCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,7 +162,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = weatherApp/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -186,7 +191,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = weatherApp/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
