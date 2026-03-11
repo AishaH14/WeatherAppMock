@@ -12,13 +12,21 @@
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="HourlySectionCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HourlySectionCell" rowHeight="597" id="ldv-Nm-xHi" customClass="HourlySectionCell" customModule="weatherApp" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="526" height="597"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ldv-Nm-xHi" id="xgs-tf-0ib">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.45000000000000001" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ldv-Nm-xHi" id="xgs-tf-0ib">
                 <rect key="frame" x="0.0" y="0.0" width="526" height="597"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOf-Du-38y">
+                        <rect key="frame" x="143" y="298" width="240" height="1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="XXb-Na-T99"/>
+                        </constraints>
+                    </view>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="YwB-TF-ILM">
                         <rect key="frame" x="20" y="15" width="486" height="567"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="tintColor"/>
+                        <color key="tintColor" systemColor="tintColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="lQV-tR-teo">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -27,13 +35,26 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                 </subviews>
+                <color key="backgroundColor" systemColor="tableCellBlueTextColor"/>
+                <color key="tintColor" systemColor="tableCellBlueTextColor"/>
                 <constraints>
                     <constraint firstItem="YwB-TF-ILM" firstAttribute="top" secondItem="xgs-tf-0ib" secondAttribute="topMargin" id="NBS-7A-CPo"/>
                     <constraint firstAttribute="trailingMargin" secondItem="YwB-TF-ILM" secondAttribute="trailing" id="WMy-b4-ufx"/>
+                    <constraint firstItem="bOf-Du-38y" firstAttribute="centerX" secondItem="YwB-TF-ILM" secondAttribute="centerX" id="bYB-aH-csc"/>
+                    <constraint firstItem="bOf-Du-38y" firstAttribute="leading" secondItem="xgs-tf-0ib" secondAttribute="leading" constant="143" id="eMb-dr-XMR"/>
+                    <constraint firstItem="bOf-Du-38y" firstAttribute="centerY" secondItem="YwB-TF-ILM" secondAttribute="centerY" id="nn1-jU-yhP"/>
                     <constraint firstAttribute="bottomMargin" secondItem="YwB-TF-ILM" secondAttribute="bottom" id="sg9-tk-Wzd"/>
                     <constraint firstItem="YwB-TF-ILM" firstAttribute="leading" secondItem="xgs-tf-0ib" secondAttribute="leadingMargin" id="sqe-R7-kM0"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                        <integer key="value" value="20"/>
+                    </userDefinedRuntimeAttribute>
+                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="collectionView" destination="YwB-TF-ILM" id="YCL-aJ-Qjc"/>
             </connections>
@@ -43,6 +64,12 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tableCellBlueTextColor">
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -24,11 +24,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var weatherBackgroundImageView: UIImageView!
+    
+    @IBOutlet weak var searchButton: UIButton!
+    @IBAction func searchTapped(_ sender: Any) {
+            print("Search tapped")
+    }
     let weatherService = WeatherService()
     var weatherData: WeatherResponse?
     override func viewDidLoad() {
         super.viewDidLoad()
+       // updateBackground()
         
+        weatherBackgroundImageView.image = UIImage(named: "dd")
+        weatherBackgroundImageView.contentMode = .scaleToFill
+        weatherBackgroundImageView.backgroundColor = .red
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -42,7 +53,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
      
         fetchWeather()
         tableView.backgroundColor = .clear
-        view.backgroundColor = .clear
+        searchButton.showsTouchWhenHighlighted = true
+
     }
     func fetchWeather() {
         weatherService.fetchWeather { [weak self] result in
@@ -109,5 +121,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 70, height: 120)
+    }
+    func updateBackground() {
+        let hour = Calendar.current.component(.hour, from: Date())
+
+        if hour >= 6 && hour < 18 {
+            view.backgroundColor = UIColor(patternImage: UIImage(named: "dd")!)
+        } else {
+            view.backgroundColor = UIColor(patternImage: UIImage(named: "galaxy-background")!)
+        }
+    
     }
 }

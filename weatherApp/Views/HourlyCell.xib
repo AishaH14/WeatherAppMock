@@ -10,11 +10,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HourlyCell" customModule="weatherApp" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" restorationIdentifier="HourlyCell" id="iN0-l3-epB" customClass="HourlyCell" customModule="weatherApp" customModuleProvider="target">
+        <view clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" restorationIdentifier="HourlyCell" id="iN0-l3-epB" customClass="HourlyCell" customModule="weatherApp" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KL4-sn-jGl">
+                <stackView clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KL4-sn-jGl">
                     <rect key="frame" x="180" y="388.66666666666669" width="33.333333333333343" height="75"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PKK-EJ-dtI">
@@ -34,13 +34,23 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <color key="backgroundColor" systemColor="tintColor"/>
+                    <color key="tintColor" systemColor="tintColor"/>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="tintColor"/>
+            <color key="tintColor" systemColor="tintColor"/>
             <constraints>
                 <constraint firstItem="KL4-sn-jGl" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="BzH-Og-V9O"/>
                 <constraint firstItem="KL4-sn-jGl" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Ln8-zr-TSX"/>
             </constraints>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                    <integer key="value" value="20"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="tempLabel" destination="yDD-p2-bB8" id="yja-nj-ezg"/>
                 <outlet property="timeLabel" destination="PKK-EJ-dtI" id="aKz-Y1-oLd"/>
@@ -56,6 +66,9 @@
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

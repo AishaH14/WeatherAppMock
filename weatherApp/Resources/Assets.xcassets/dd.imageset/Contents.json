@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "sunBackground.png",
+      "filename" : "dd.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "dd 1.jpeg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "dd 2.jpeg",
       "idiom" : "universal",
       "scale" : "3x"
     }
