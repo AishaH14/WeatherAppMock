@@ -9,16 +9,23 @@ import UIKit
 
 class HourlySectionCell: UITableViewCell {
 
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+
+        WeatherTheme.applyGradient(to: containerView)
+
+        collectionView.backgroundColor = .clear
+        collectionView.isUserInteractionEnabled = false
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
 
 }
