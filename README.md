@@ -1,4 +1,4 @@
-# 🌤 Weather App (Apple Weather Style)
+# 🌤 Weather App
 
 A UIKit-based iOS weather application that mimics the design and behavior of the Apple Weather app.
 
