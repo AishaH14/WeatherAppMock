@@ -20,7 +20,15 @@ class HourlySectionCell: UITableViewCell {
         WeatherTheme.applyGradient(to: containerView)
 
         collectionView.backgroundColor = .clear
-        collectionView.isUserInteractionEnabled = false
+        collectionView.isUserInteractionEnabled = true
+        collectionView.isScrollEnabled = true
+           collectionView.alwaysBounceHorizontal = true
+           collectionView.showsHorizontalScrollIndicator = false
+
+           if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+               layout.scrollDirection = .horizontal
+           }
+       
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -42,6 +42,16 @@
 			path = APP;
 			sourceTree = "<group>";
 		};
+		CA71E97C2F7D488F00DEE8DD /* Network */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Network;
+			sourceTree = "<group>";
+		};
+		CA8E89262F7C635800B24430 /* ViewModels */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +68,8 @@
 		CAAB985C2F58457E008D4548 = {
 			isa = PBXGroup;
 			children = (
+				CA71E97C2F7D488F00DEE8DD /* Network */,
+				CA8E89262F7C635800B24430 /* ViewModels */,
 				CA2C84102F5FB8910076143E /* APP */,
 				CA2C840E2F5FB87F0076143E /* Resources */,
 				CA2C840D2F5FB8560076143E /* Services */,
@@ -91,6 +103,8 @@
 				CA2C840D2F5FB8560076143E /* Services */,
 				CA2C840E2F5FB87F0076143E /* Resources */,
 				CA2C84102F5FB8910076143E /* APP */,
+				CA71E97C2F7D488F00DEE8DD /* Network */,
+				CA8E89262F7C635800B24430 /* ViewModels */,
 			);
 			name = weatherApp;
 			packageProductDependencies = (

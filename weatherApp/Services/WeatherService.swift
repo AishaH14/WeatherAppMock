@@ -6,41 +6,39 @@
 //
 import Foundation
 
-class WeatherService {
+final class WeatherService {
     
-    func fetchWeather(completion: @escaping (Result<WeatherResponse, Error>) -> Void) {
+    private let apiKey = "2de8e5316b9cf195e13078904b129e8c"
+    
+    func fetchCurrentWeather(for city: String,
+                             completion: @escaping (Result<WeatherResponse, Error>) -> Void) {
         
-        let lat = 21.5433
-        let lon = 39.1728
-        let apiKey = "2de8e5316b9cf195e13078904b129e8c"
+        let cityEncoded = city.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? city
         
-        let urlString =
-        "https://api.openweathermap.org/data/3.0/onecall?lat=\(lat)&lon=\(lon)&exclude=minutely,hourly,daily,alerts&appid=\(apiKey)&units=metric"
+        let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(cityEncoded)&appid=\(apiKey)&units=metric"
         
-        guard let url = URL(string: urlString) else { return }
+        guard let url = URL(string: urlString) else {
+            print("Invalid current weather URL")
+            return
+        }
         
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            if let httpResponse = response as? HTTPURLResponse {
-                print("Status Code:", httpResponse.statusCode)
-            }
-            
-            guard let data = data else { return }
-            
-            if let jsonString = String(data: data, encoding: .utf8) {
-                print("Response JSON:", jsonString)
-            }
-           
-            do {
-                let decodedData = try JSONDecoder().decode(WeatherResponse.self, from: data)
-                completion(.success(decodedData))
-            } catch {
-                completion(.failure(error))
-            }
-        }.resume()
-    }}
+      
+        NetworkManager.shared.request(url: url, completion: completion)
+    }
+    
+    func fetchForecast(for city: String,
+                       completion: @escaping (Result<ForecastResponse, Error>) -> Void) {
+        
+        let cityEncoded = city.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? city
+        
+        let urlString = "https://api.openweathermap.org/data/2.5/forecast?q=\(cityEncoded)&appid=\(apiKey)&units=metric"
+        
+        guard let url = URL(string: urlString) else {
+            print("Invalid forecast URL")
+            return
+        }
+        
+        
+        NetworkManager.shared.request(url: url, completion: completion)
+    }
+}

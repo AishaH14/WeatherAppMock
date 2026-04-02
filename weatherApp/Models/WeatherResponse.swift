@@ -6,16 +6,31 @@
 
 import Foundation
 
-struct WeatherResponse: Codable, Sendable {
-    let current: CurrentWeather
-}
-
-struct CurrentWeather: Codable, Sendable {
-    let temp: Double
+// MARK: - Current Weather
+struct WeatherResponse: Codable {
+    let name: String
+    let main: MainWeather
     let weather: [WeatherCondition]
 }
 
-struct WeatherCondition: Codable, Sendable {
+struct MainWeather: Codable {
+    let temp: Double
+}
+
+// MARK: - Forecast
+struct ForecastResponse: Codable {
+    let list: [ForecastItem]
+}
+
+struct ForecastItem: Codable {
+    let dt: Int
+    let main: MainWeather
+    let weather: [WeatherCondition]
+}
+
+// MARK: - Common
+struct WeatherCondition: Codable {
     let main: String
     let description: String
+    let icon: String?
 }

@@ -12,22 +12,25 @@ class DailyForecastCell: UITableViewCell, UITableViewDataSource, UITableViewDele
            let day: String
            let minTemp: String
            let maxTemp: String
-           let icon: String
+           let weatherType: WeatherType
        }
 
        let forecastData: [Forecast] = [
-           Forecast(day: "Today", minTemp: "24°", maxTemp: "33°", icon: "sun.max.fill"),
-           Forecast(day: "Fri", minTemp: "22°", maxTemp: "31°", icon: "cloud.sun.fill"),
-           Forecast(day: "Sat", minTemp: "23°", maxTemp: "32°", icon: "sun.max.fill"),
-           Forecast(day: "Sun", minTemp: "25°", maxTemp: "34°", icon: "sun.max.fill"),
-           Forecast(day: "Mon", minTemp: "21°", maxTemp: "30°", icon: "cloud.fill"),
-           Forecast(day: "Tue", minTemp: "22°", maxTemp: "29°", icon: "cloud.sun.fill"),
-           Forecast(day: "Wed", minTemp: "24°", maxTemp: "33°", icon: "sun.max.fill")
-       ]
+        Forecast(day: "Today", minTemp: "24°", maxTemp: "33°",weatherType :.clear),
+        Forecast(day: "Fri", minTemp: "22°", maxTemp: "31°", weatherType:.clear),
+        Forecast(day: "Sat", minTemp: "23°", maxTemp: "32°", weatherType:.clouds),
+        Forecast(day: "Sun", minTemp: "25°", maxTemp: "34°", weatherType:.drizzle),
+        Forecast(day: "Mon", minTemp: "21°", maxTemp: "30°", weatherType:.rain),
+        Forecast(day: "Tue", minTemp: "22°", maxTemp: "29°", weatherType:.drizzle),
+        Forecast(day: "Wed", minTemp: "24°", maxTemp: "33°", weatherType:.clear),
+        Forecast(day: "Thu", minTemp: "23°", maxTemp: "32°", weatherType:.thunderstorm),
+        Forecast(day: "Fri", minTemp: "22°", maxTemp: "31°", weatherType:.clear),
+        Forecast(day: "Sat", minTemp: "18°", maxTemp: "30°", weatherType:.clouds)
+           ]
+       
     @IBOutlet weak var cardView: UIView!
     
     @IBOutlet weak var dailyTableView: UITableView!
-    let days = ["Today","Fri","Sat","Sun","Mon","Tue","Wed"]
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -52,7 +55,6 @@ class DailyForecastCell: UITableViewCell, UITableViewDataSource, UITableViewDele
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("days count =", days.count)
         return forecastData.count
     }
 
@@ -64,7 +66,8 @@ class DailyForecastCell: UITableViewCell, UITableViewDataSource, UITableViewDele
         cell.dayLabel.text = item.day
         cell.tempMinLabel.text = item.minTemp
         cell.tempMaxLabel.text = item.maxTemp
-        cell.weatherImage.image = UIImage(systemName: item.icon)
+        cell.weatherImage.image = item.weatherType.icon
+        cell.weatherImage.tintColor = item.weatherType.color
         return cell
     }
     

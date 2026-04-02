@@ -13,7 +13,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var hasShownCityTitle = false
     var isShowingSearch = false
     var selectedCity: String = "Jeddah"
-    
+    private let viewModel = WeatherViewModel()
+    var hourlyForecast: [ForecastItem] = []
+    let loadingIndicator = UIActivityIndicatorView(style: .large)
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var currentInfoView: UIView!
     @IBOutlet weak var cityLabel: UILabel!
@@ -21,16 +23,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var conditionLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var weatherBackgroundImageView: UIImageView!
-
-    let weatherService = WeatherService()
-    var weatherData: WeatherResponse?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = ""
-        
+       
         weatherBackgroundImageView.contentMode = .scaleToFill
           updateBackground()
+        fetchCurrentWeather(for: selectedCity)
+        fetchForecast(for: selectedCity)
         
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
@@ -40,25 +41,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.contentInsetAdjustmentBehavior = .never
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.white
-        ]
-        
-        tableView.register(UINib(nibName: "HourlySectionCell", bundle: nil),
-                           forCellReuseIdentifier: "HourlySectionCell")
-        
-        tableView.register(UINib(nibName: "DailyForecastCell", bundle: nil),
-                           forCellReuseIdentifier: "DailyForecastCell")
-        
-        tableView.register(UINib(nibName: "WeatherInfoCell", bundle: nil),
-                           forCellReuseIdentifier: "WeatherInfoCell")
-        
-        tableView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
-        
-        setupSearchBar()
-        fetchWeather()
+           navigationController?.navigationBar.shadowImage = UIImage()
+           navigationController?.navigationBar.isTranslucent = true
+           navigationController?.navigationBar.titleTextAttributes = [
+               .foregroundColor: UIColor.white
+           ]
+
+           tableView.register(UINib(nibName: "HourlySectionCell", bundle: nil),
+                              forCellReuseIdentifier: "HourlySectionCell")
+
+           tableView.register(UINib(nibName: "DailyForecastCell", bundle: nil),
+                              forCellReuseIdentifier: "DailyForecastCell")
+
+           tableView.register(UINib(nibName: "WeatherInfoCell", bundle: nil),
+                              forCellReuseIdentifier: "WeatherInfoCell")
+
+           tableView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+
+           setupSearchBar()
+           setupLoadingIndicator()
     
     }
     
@@ -82,20 +83,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         textField.leftView?.tintColor = UIColor.white.withAlphaComponent(0.8)
     }
     
-    func fetchWeather() {
-        weatherService.fetchWeather { [weak self] result in
+    func fetchCurrentWeather(for city: String){
+        DispatchQueue.main.async {
+            self.loadingIndicator.startAnimating()
+        }
+        viewModel.loadCurrentWeather(for: city)  { [weak self] result in
+            guard let self = self else { return }
             switch result {
-            case .success(let data):
+            case .success :
                 DispatchQueue.main.async {
-                    self?.weatherData = data
-                    self?.tableView.reloadData()
-                    self?.cityLabel.text = self?.selectedCity
-                    self?.tempLabel.text = "\(Int(data.current.temp))°"
-                    self?.conditionLabel.text = data.current.weather.first?.main
+                    guard let data = self.viewModel.currentWeather else { return }
+                    self.loadingIndicator.stopAnimating()
+                    self.selectedCity = data.name
+                    self.cityLabel.text = self.selectedCity
+                    self.tempLabel.text = "\(Int(data.main.temp))°"
+                    self.conditionLabel.text =
+                        WeatherType(rawValue: data.weather.first?.main ?? "")?.text ?? "Clear"
                 }
                 
             case .failure(let error):
-                print("Error fetching weather:", error.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showErrorAlert(message: error.localizedDescription)
+                }
             }
         }
     }
@@ -111,11 +120,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         searchVC.onCitySelected = { [weak self] city in
             guard let self = self else { return }
             self.selectedCity = city
-            self.cityLabel.text = city
             self.searchBar.text = city
+            self.fetchCurrentWeather(for: city)
+            self.fetchForecast(for: city)
             
            
-            self.fetchWeather()
+            
         }
         
         searchVC.onDismiss = { [weak self] in
@@ -164,29 +174,39 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if indexPath.row == 0 {
             return 160
         } else if indexPath.row == 1 {
-            return 380
+            return 500
         } else {
             return 350
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.row != 0 else { return }
         let detailVC = WeatherDetailViewController(nibName: "WeatherDetailViewController", bundle: nil)
+        detailVC.forecastItems = viewModel.forecast?.list ?? []
         present(detailVC, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        return hourlyForecast.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyCell", for: indexPath) as! HourlyCell
         
-        cell.timeLabel.text = "3PM"
-        cell.tempLabel.text = "32°"
-        cell.weatherImage.image = UIImage(systemName: "sun.max.fill")
-        
+        let item = hourlyForecast[indexPath.item]
+
+        cell.configure(with: item)
+        if indexPath.item == 0 {
+                cell.timeLabel.text = "Now"
+            }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailVC = WeatherDetailViewController(nibName: "WeatherDetailViewController", bundle: nil)
+        detailVC.forecastItems = viewModel.forecast?.list ?? []
+        present(detailVC, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -199,11 +219,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let hour = Calendar.current.component(.hour, from: Date())
         
         if hour >= 6 && hour < 18 {
-            view.backgroundColor = UIColor(patternImage: UIImage(named: "background")!)
-        } else {
-            view.backgroundColor = UIColor(patternImage: UIImage(named: "nightbackground")!)
-        }
-    }
+            weatherBackgroundImageView.image = UIImage(named: "background")
+             } else {
+            weatherBackgroundImageView.image = UIImage(named: "nightbackground")
+                }    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let yOffset = scrollView.contentOffset.y + tableView.contentInset.top
@@ -221,4 +240,44 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
         navigationItem.title = ""
     }
+    func fetchForecast(for city: String) {
+        viewModel.loadForecast(for: city) { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    guard let forecastList = self.viewModel.forecast?.list else { return }
+
+                    self.hourlyForecast = Array(forecastList.prefix(8))
+                    self.tableView.reloadData()
+                }
+
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.showErrorAlert(message: error.localizedDescription)
+                }
+            }
+        }
+    }
+    func setupLoadingIndicator() {
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        loadingIndicator.color = .white
+        loadingIndicator.hidesWhenStopped = true
+
+        view.addSubview(loadingIndicator)
+
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    func showErrorAlert(message: String) {
+        let alert = UIAlertController(title: "Error",
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+  
 }
