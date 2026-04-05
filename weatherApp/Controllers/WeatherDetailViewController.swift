@@ -9,6 +9,9 @@ import UIKit
 class WeatherDetailViewController: UIViewController, UICalendarSelectionSingleDateDelegate{
     let gradient = CAGradientLayer()
     var forecastItems: [ForecastItem] = []
+    var calendarOverlayView: UIControl?
+    var calendarContainerView: UIView?
+    var calendarView: UICalendarView?
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
        
         guard let dateComponents = dateComponents,
@@ -18,19 +21,18 @@ class WeatherDetailViewController: UIViewController, UICalendarSelectionSingleDa
         updateFullDateLabel(with: date)
         updateWeatherForSelectedDate(date)
         updateSelectedDateLabel(with: date)
-        calendarPopupView.isHidden = true
+        
     }
-    @IBOutlet weak var calendarPopupView: UIView!
     @IBOutlet weak var fullDateLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var selectedDateLabel: UILabel!
-    var calendarView: UICalendarView!
+    
     var selectedDate = Date()
     var dividerView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        fullDateLabel.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+        fullDateLabel.backgroundColor = UIColor.white.withAlphaComponent(0.12)
         fullDateLabel.textAlignment = .center
         fullDateLabel.clipsToBounds = true
         applyWeatherGradient()
@@ -39,30 +41,26 @@ class WeatherDetailViewController: UIViewController, UICalendarSelectionSingleDa
         updateWeatherForSelectedDate(selectedDate)
         updateSelectedDateLabel(with: selectedDate)
         
-        calendarPopupView.isHidden = true
-        calendarPopupView.layer.cornerRadius = 16
-        calendarPopupView.clipsToBounds = true
-        calendarPopupView.layer.borderWidth = 1
-        calendarPopupView.layer.borderColor = UIColor.systemGray5.cgColor
-
+       
         let tap = UITapGestureRecognizer(target: self, action: #selector(fullDateLabelTapped))
         fullDateLabel.isUserInteractionEnabled = true
         fullDateLabel.addGestureRecognizer(tap)
 
-        setupCalendarView()
+        hideCalendarPopup()
         setupDivider()
     
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         gradient.frame = view.bounds
-        fullDateLabel.layer.cornerRadius = fullDateLabel.frame.height / 2
+       // fullDateLabel.layer.cornerRadius = fullDateLabel.frame.height / 2
+        fullDateLabel.layer.cornerRadius = 10
         fullDateLabel.clipsToBounds = true
     }
     func updateFullDateLabel(with date: Date) {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US")
-        formatter.dateFormat = "EEEE, d MMMM yyyy"
+        formatter.dateFormat = "d MMMM yyyy"
         fullDateLabel.text = formatter.string(from: date)
     }
 
@@ -78,31 +76,7 @@ class WeatherDetailViewController: UIViewController, UICalendarSelectionSingleDa
             view.layer.insertSublayer(gradient, at: 0)
         }
     }
-    @objc func fullDateLabelTapped() {
-        calendarPopupView.isHidden.toggle()
-    }
-    func setupCalendarView() {
-        calendarView = UICalendarView()
-        calendarView.translatesAutoresizingMaskIntoConstraints = false
-        calendarView.calendar = Calendar(identifier: .gregorian)
-        calendarView.locale = Locale(identifier: "en_US")
-        calendarView.tintColor = .systemBlue
-
-        let selection = UICalendarSelectionSingleDate(delegate: self)
-        calendarView.selectionBehavior = selection
-
-        let components = Calendar.current.dateComponents([.year, .month, .day], from: selectedDate)
-        selection.setSelected(components, animated: false)
-
-        calendarPopupView.addSubview(calendarView)
-
-        NSLayoutConstraint.activate([
-            calendarView.topAnchor.constraint(equalTo: calendarPopupView.topAnchor, constant: 8),
-            calendarView.bottomAnchor.constraint(equalTo: calendarPopupView.bottomAnchor, constant: -8),
-            calendarView.leadingAnchor.constraint(equalTo: calendarPopupView.leadingAnchor, constant: 8),
-            calendarView.trailingAnchor.constraint(equalTo: calendarPopupView.trailingAnchor, constant: -8)
-        ])
-    }
+    
     
     func setupDivider() {
         dividerView = UIView()
@@ -112,11 +86,14 @@ class WeatherDetailViewController: UIViewController, UICalendarSelectionSingleDa
         view.addSubview(dividerView)
 
         NSLayoutConstraint.activate([
-            dividerView.topAnchor.constraint(equalTo: calendarPopupView.bottomAnchor, constant: 20),
+            dividerView.topAnchor.constraint(equalTo: selectedDateLabel.bottomAnchor, constant: 20),
             dividerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             dividerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             dividerView.heightAnchor.constraint(equalToConstant: 1)
         ])
+    }
+    @objc func fullDateLabelTapped() {
+        showCalendarPopup()
     }
     func updateWeatherForSelectedDate(_ date: Date) {
         guard !forecastItems.isEmpty else { return }
@@ -154,6 +131,69 @@ class WeatherDetailViewController: UIViewController, UICalendarSelectionSingleDa
         formatter.locale = Locale(identifier: "en_US")
         formatter.dateFormat = "EEEE, d MMMM yyyy"
         selectedDateLabel.text = formatter.string(from: date)
+    }
+    func showCalendarPopup() {
+        if calendarOverlayView != nil { return }
+
+        let overlay = UIControl()
+        overlay.translatesAutoresizingMaskIntoConstraints = false
+        overlay.backgroundColor = UIColor.black.withAlphaComponent(0.15)
+        overlay.addTarget(self, action: #selector(hideCalendarPopup), for: .touchUpInside)
+        view.addSubview(overlay)
+
+        NSLayoutConstraint.activate([
+            overlay.topAnchor.constraint(equalTo: view.topAnchor),
+            overlay.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            overlay.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            overlay.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.backgroundColor = .systemBackground
+        container.layer.cornerRadius = 16
+        container.clipsToBounds = true
+        overlay.addSubview(container)
+
+        NSLayoutConstraint.activate([
+            container.topAnchor.constraint(equalTo: fullDateLabel.bottomAnchor, constant: 8),
+            container.centerXAnchor.constraint(equalTo: fullDateLabel.centerXAnchor),
+            container.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            container.widthAnchor.constraint(equalToConstant: 320),
+            container.heightAnchor.constraint(equalToConstant: 340)
+        ])
+
+        let calendar = UICalendarView()
+        calendar.translatesAutoresizingMaskIntoConstraints = false
+        calendar.calendar = Calendar(identifier: .gregorian)
+        calendar.locale = Locale(identifier: "en_US")
+        calendar.tintColor = .systemBlue
+
+        let selection = UICalendarSelectionSingleDate(delegate: self)
+        calendar.selectionBehavior = selection
+
+        let components = Calendar.current.dateComponents([.year, .month, .day], from: selectedDate)
+        selection.setSelected(components, animated: false)
+
+        container.addSubview(calendar)
+
+        NSLayoutConstraint.activate([
+            calendar.topAnchor.constraint(equalTo: container.topAnchor, constant: 8),
+            calendar.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -8),
+            calendar.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 8),
+            calendar.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -8)
+        ])
+
+
+        calendarOverlayView = overlay
+        calendarContainerView = container
+        calendarView = calendar
+    }
+    @objc func hideCalendarPopup() {
+        calendarOverlayView?.removeFromSuperview()
+        calendarOverlayView = nil
+        calendarContainerView = nil
+        calendarView = nil
     }
     
 }

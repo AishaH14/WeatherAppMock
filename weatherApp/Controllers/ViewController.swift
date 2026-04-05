@@ -133,7 +133,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self?.searchBar.resignFirstResponder()
         }
         
-        present(searchVC, animated: true)
+        navigationController?.pushViewController(searchVC, animated: true)
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {

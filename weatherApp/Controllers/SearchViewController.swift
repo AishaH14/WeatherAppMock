@@ -9,8 +9,6 @@
 import UIKit
 
 class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
-
-    @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
 
@@ -145,10 +143,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
 
     var filteredCities: [String] = []
 
-    @IBAction func closeTapped(_ sender: UIButton) {
-        dismiss(animated: true)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -169,6 +163,12 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
 
         applySearchAppearance()
         filterCities(with: initialSearchText)
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: self,
+            action: #selector(close)
+        )
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -213,7 +213,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             attributes: [.foregroundColor: UIColor.white.withAlphaComponent(0.65)]
         )
 
-        closeButton.tintColor = .white
     }
 
     func filterCities(with text: String) {
@@ -269,6 +268,9 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCity = filteredCities[indexPath.row]
         onCitySelected?(selectedCity)
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
+    }
+    @objc func close() {
+        navigationController?.popViewController(animated: true)
     }
 }

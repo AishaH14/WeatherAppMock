@@ -9,7 +9,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchViewController" customModule="weatherApp" customModuleProvider="target">
             <connections>
-                <outlet property="closeButton" destination="vRc-Zh-fmS" id="3VL-dg-n9h"/>
                 <outlet property="searchBar" destination="nXQ-8U-WwX" id="3d4-P8-uGF"/>
                 <outlet property="tableView" destination="P8I-hH-rcO" id="Vwk-PH-6bd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -21,25 +20,15 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="P8I-hH-rcO">
-                    <rect key="frame" x="0.0" y="228" width="393" height="556"/>
+                    <rect key="frame" x="0.0" y="180" width="393" height="604"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vRc-Zh-fmS">
-                    <rect key="frame" x="347" y="126" width="30" height="30"/>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="nXQ-8U-WwX">
+                    <rect key="frame" x="10" y="126" width="373" height="44"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="30" id="JkD-RQ-rDL"/>
-                        <constraint firstAttribute="height" constant="30" id="lXX-UP-CSy"/>
+                        <constraint firstAttribute="height" constant="44" id="jaV-ck-Gjh"/>
                     </constraints>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system"/>
-                    <connections>
-                        <action selector="closeTapped:" destination="-1" eventType="touchUpInside" id="2zy-fk-1E2"/>
-                    </connections>
-                </button>
-                <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nXQ-8U-WwX">
-                    <rect key="frame" x="0.0" y="118" width="393" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="Hba-nq-iu9"/>
@@ -50,17 +39,15 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="vRc-Zh-fmS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="4qD-qy-eaT"/>
-                <constraint firstAttribute="trailing" secondItem="vRc-Zh-fmS" secondAttribute="trailing" constant="16" id="9Be-ZK-8W1"/>
-                <constraint firstItem="P8I-hH-rcO" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="110" id="Bov-rS-Ab6"/>
+                <constraint firstItem="P8I-hH-rcO" firstAttribute="top" secondItem="nXQ-8U-WwX" secondAttribute="bottom" constant="10" id="Bov-rS-Ab6"/>
+                <constraint firstItem="nXQ-8U-WwX" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-10" id="LBg-6d-6HA"/>
+                <constraint firstItem="nXQ-8U-WwX" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="ad0-Wm-opu"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="P8I-hH-rcO" secondAttribute="trailing" id="esk-wC-Jjc"/>
+                <constraint firstItem="nXQ-8U-WwX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="hmg-N1-qjO"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="P8I-hH-rcO" secondAttribute="bottom" id="kOA-fM-vCG"/>
                 <constraint firstItem="P8I-hH-rcO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="p4I-Eu-DsM"/>
             </constraints>
             <point key="canvasLocation" x="-225" y="111"/>
         </view>
     </objects>
-    <resources>
-        <image name="xmark" catalog="system" width="128" height="113"/>
-    </resources>
 </document>
