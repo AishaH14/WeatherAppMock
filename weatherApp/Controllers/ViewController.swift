@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate,CLLocationManagerDelegate {
     
     var hasShownCityTitle = false
     var isShowingSearch = false
     var selectedCity: String = "Jeddah"
     private let viewModel = WeatherViewModel()
     var hourlyForecast: [ForecastItem] = []
+    let locationManager = CLLocationManager()
     let loadingIndicator = UIActivityIndicatorView(style: .large)
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var currentInfoView: UIView!
@@ -27,7 +29,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = ""
-       
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        
         weatherBackgroundImageView.contentMode = .scaleToFill
           updateBackground()
         fetchCurrentWeather(for: selectedCity)

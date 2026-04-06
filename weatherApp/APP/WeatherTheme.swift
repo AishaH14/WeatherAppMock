@@ -25,22 +25,5 @@ class WeatherTheme {
         }
     }
 
-    static func applyGradient(to view: UIView) {
-        let hour = Calendar.current.component(.hour, from: Date())
-        let isDay = hour >= 6 && hour < 18
-
-        view.layoutIfNeeded()
-
-        view.layer.sublayers?.removeAll(where: { $0.name == "weatherGradientLayer" })
-
-        let gradient = CAGradientLayer()
-        gradient.name = "weatherGradientLayer"
-        gradient.frame = view.bounds
-        gradient.colors = colors(isDay: isDay)
-        gradient.startPoint = CGPoint(x: 0.5, y: 0)
-        gradient.endPoint = CGPoint(x: 0.5, y: 1)
-        gradient.cornerRadius = view.layer.cornerRadius
-
-        view.layer.insertSublayer(gradient, at: 0)
-    }
+   
 }

@@ -17,8 +17,10 @@ class HourlySectionCell: UITableViewCell {
         backgroundColor = .clear
         contentView.backgroundColor = .clear
 
-        WeatherTheme.applyGradient(to: containerView)
-
+        let hour = Calendar.current.component(.hour, from: Date())
+        let isDay = hour >= 6 && hour < 18
+        containerView.applyWeatherGradient(colors: WeatherTheme.colors(isDay: isDay))
+        
         collectionView.backgroundColor = .clear
         collectionView.isUserInteractionEnabled = true
         collectionView.isScrollEnabled = true

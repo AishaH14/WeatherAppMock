@@ -30,9 +30,10 @@ class WeatherCardCell: UICollectionViewCell {
         
         lineContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         let hour = Calendar.current.component(.hour, from: Date())
-        _ = hour >= 6 && hour < 18
-        
-        WeatherTheme.applyGradient(to: cardView)
+        let isDay = hour >= 6 && hour < 18
+
+       
+        cardView.applyWeatherGradient(colors: WeatherTheme.colors(isDay: isDay))
         
     }
     

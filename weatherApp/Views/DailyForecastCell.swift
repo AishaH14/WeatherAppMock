@@ -73,7 +73,9 @@ class DailyForecastCell: UITableViewCell, UITableViewDataSource, UITableViewDele
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        WeatherTheme.applyGradient(to: cardView)
+        let hour = Calendar.current.component(.hour, from: Date())
+        let isDay = hour >= 6 && hour < 18
+        cardView.applyWeatherGradient(colors: WeatherTheme.colors(isDay: isDay))
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
