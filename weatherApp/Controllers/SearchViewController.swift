@@ -15,138 +15,11 @@ class SearchViewController: UIViewController   {
     var initialSearchText: String = ""
     var onDismiss: (() -> Void)?
     var onCitySelected: ((String) -> Void)?
-    
-    let cities = [
-        "Riyadh",
-        "Jazan",
-        "Makkah",
-        "Madinah",
-        "Dammam",
-        "Khobar",
-        "Dhahran",
-        "Taif",
-        "Tabuk",
-        "Abha",
-        "Khamis Mushait",
-        "Najran",
-        "Al Baha",
-        "Hail",
-        "Buraidah",
-        "Unaizah",
-        "Arar",
-        "Sakaka",
-        "Yanbu",
-        "Rabigh",
-        "Al Jubail",
-        "Al Ahsa",
-        "Hofuf",
-        "Qatif",
-        "Ras Tanura",
-        "Khafji",
-        "Buqayq",
-        "Al Nairyah",
-        "Qaryat al Ulya",
-        "Udhailiyah",
-        "Safwa",
-        "Saihat",
-        "Tarout",
-        "Diriyah",
-        "Al Kharj",
-        "Al Majma'ah",
-        "Al Zulfi",
-        "Shaqra",
-        "Afif",
-        "Dawadmi",
-        "Wadi Al Dawasir",
-        "Sulayyil",
-        "Al Aflaj",
-        "Huraymila",
-        "Rumah",
-        "Thadiq",
-        "Hotat Bani Tamim",
-        "Al Hariq",
-        "Layla",
-        "Marat",
-        "Ad Dilam",
-        "Al Quwayiyah",
-        "Muzahimiyah",
-        "Bisha",
-        "Baljurashi",
-        "Al Mandaq",
-        "Muhayil Asir",
-        "Ahad Rafidah",
-        "Sarat Abidah",
-        "Rijal Alma",
-        "Tanomah",
-        "Al Namas",
-        "Dhahran Al Janub",
-        "Sabya",
-        "Abu Arish",
-        "Samtah",
-        "Bish",
-        "Al Ardah",
-        "Darb",
-        "Farasan",
-        "Sharurah",
-        "Habuna",
-        "Yadamah",
-        "Badr Al Janub",
-        "Al Ula",
-        "Khaybar",
-        "Badr",
-        "Mahd Al Dhahab",
-        "Al Hanakiyah",
-        "Al Uyaynah",
-        "Tayma",
-        "Duba",
-        "Al Wajh",
-        "Umluj",
-        "Haql",
-        "Al Qunfudhah",
-        "Al Lith",
-        "Turabah",
-        "Ranyah",
-        "Al Jamum",
-        "Al Kamil",
-        "Al Khurmah",
-        "Al Mowaih",
-        "Thuwal",
-        "Jizan Economic City",
-        "Al Qurayyat",
-        "Turaif",
-        "Rafha",
-        "Domat Al Jandal",
-        "Tabarjal",
-        "Al Jawf",
-        "Hafar Al Batin",
-        "Qaisumah",
-        "Al Artawiyah",
-        "Madinat as Sina'iyah",
-        "Al Mithnab",
-        "Al Bukayriyah",
-        "Ar Rass",
-        "Al Badayea",
-        "Riyadh Al Khabra",
-        "Uqlat As Suqur",
-        "Dulay Rasheed",
-        "Al Khabra",
-        "As Sulayyil",
-        "Al Shamli",
-        "Baqaa",
-        "Al Ghazalah",
-        "Ash Shinan",
-        "Mawqaq",
-        "Samirah",
-        "Jubbah",
-        "Al Hait"
-    ]
-    
+ 
     var filteredCities: [String] = []
-    
+    var cities: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        filteredCities = []
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -155,6 +28,7 @@ class SearchViewController: UIViewController   {
         tableView.isOpaque = false
         tableView.separatorStyle = .none
         tableView.rowHeight = 50
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CityCell")
         searchBar.delegate = self
         searchBar.searchTextField.text = initialSearchText
         searchBar.searchBarStyle = .minimal
@@ -162,6 +36,7 @@ class SearchViewController: UIViewController   {
         searchBar.isOpaque = false
         
         applySearchAppearance()
+        loadCities()
         filterCities(with: initialSearchText)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -237,9 +112,22 @@ class SearchViewController: UIViewController   {
     @objc func close() {
         navigationController?.popViewController(animated: true)
     }
+    func loadCities() {
+        guard let url = Bundle.main.url(forResource: "cities", withExtension: "json") else {
+            print("cities.json not found")
+            return
+        }
+
+        do {
+            let data = try Data(contentsOf: url)
+            cities = try JSONDecoder().decode([String].self, from: data)
+        } catch {
+            print("Failed to load cities: \(error)")
+        }
+    }
 }
 
-extension SearchViewController: UISearchBarDelegate {
+    extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterCities(with: searchText)
     }
@@ -260,10 +148,9 @@ extension SearchViewController: UISearchBarDelegate {
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
-            let identifier = "CityCell"
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CityCell", for: indexPath)
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: identifier)
-            ?? UITableViewCell(style: .default, reuseIdentifier: identifier)
+           
             
             var content = cell.defaultContentConfiguration()
             content.text = filteredCities[indexPath.row]
@@ -277,7 +164,7 @@ extension SearchViewController: UISearchBarDelegate {
             return cell
         }
     }
-        extension SearchViewController: UITableViewDelegate {
+    extension SearchViewController: UITableViewDelegate {
             func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                 let selectedCity = filteredCities[indexPath.row]
                 onCitySelected?(selectedCity)
