@@ -154,7 +154,7 @@ class SearchViewController: UIViewController   {
         tableView.backgroundColor = .clear
         tableView.isOpaque = false
         tableView.separatorStyle = .none
-        
+        tableView.rowHeight = 50
         searchBar.delegate = self
         searchBar.searchTextField.text = initialSearchText
         searchBar.searchBarStyle = .minimal
