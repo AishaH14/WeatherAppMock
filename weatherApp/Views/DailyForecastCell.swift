@@ -33,7 +33,8 @@ class DailyForecastCell: UITableViewCell, UITableViewDataSource, UITableViewDele
     @IBOutlet weak var dailyTableView: UITableView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        cardView.layer.cornerRadius = 20
+        cardView.layer.masksToBounds = true
         dailyTableView.dataSource = self
         dailyTableView.delegate = self
 

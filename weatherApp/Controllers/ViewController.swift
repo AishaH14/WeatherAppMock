@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate,CLLocationManagerDelegate {
+class ViewController: UIViewController {
     
     var hasShownCityTitle = false
     var isShowingSearch = false
@@ -33,7 +33,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         locationManager.requestWhenInUseAuthorization()
         
         weatherBackgroundImageView.contentMode = .scaleToFill
-          updateBackground()
+        updateBackground()
         fetchCurrentWeather(for: selectedCity)
         fetchForecast(for: selectedCity)
         
@@ -45,26 +45,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.contentInsetAdjustmentBehavior = .never
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-           navigationController?.navigationBar.shadowImage = UIImage()
-           navigationController?.navigationBar.isTranslucent = true
-           navigationController?.navigationBar.titleTextAttributes = [
-               .foregroundColor: UIColor.white
-           ]
-
-           tableView.register(UINib(nibName: "HourlySectionCell", bundle: nil),
-                              forCellReuseIdentifier: "HourlySectionCell")
-
-           tableView.register(UINib(nibName: "DailyForecastCell", bundle: nil),
-                              forCellReuseIdentifier: "DailyForecastCell")
-
-           tableView.register(UINib(nibName: "WeatherInfoCell", bundle: nil),
-                              forCellReuseIdentifier: "WeatherInfoCell")
-
-           tableView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
-
-           setupSearchBar()
-           setupLoadingIndicator()
-    
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.titleTextAttributes = [
+            .foregroundColor: UIColor.white
+        ]
+        
+        tableView.register(UINib(nibName: "HourlySectionCell", bundle: nil),
+                           forCellReuseIdentifier: "HourlySectionCell")
+        
+        tableView.register(UINib(nibName: "DailyForecastCell", bundle: nil),
+                           forCellReuseIdentifier: "DailyForecastCell")
+        
+        tableView.register(UINib(nibName: "WeatherInfoCell", bundle: nil),
+                           forCellReuseIdentifier: "WeatherInfoCell")
+        
+        tableView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        
+        setupSearchBar()
+        setupLoadingIndicator()
+        
     }
     
     func setupSearchBar() {
@@ -83,7 +83,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             string: "Search city",
             attributes: [.foregroundColor: UIColor.white.withAlphaComponent(0.65)]
         )
-
+        
         textField.leftView?.tintColor = UIColor.white.withAlphaComponent(0.8)
     }
     
@@ -102,7 +102,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.cityLabel.text = self.selectedCity
                     self.tempLabel.text = "\(Int(data.main.temp))°"
                     self.conditionLabel.text =
-                        WeatherType(rawValue: data.weather.first?.main ?? "")?.text ?? "Clear"
+                    WeatherType(rawValue: data.weather.first?.main ?? "")?.text ?? "Clear"
                 }
                 
             case .failure(let error):
@@ -128,7 +128,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.fetchCurrentWeather(for: city)
             self.fetchForecast(for: city)
             
-           
+            
             
         }
         
@@ -139,86 +139,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         navigationController?.pushViewController(searchVC, animated: true)
     }
-    
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        openSearchScreen(initialText: searchBar.text ?? "")
-        return false
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "HourlySectionCell", for: indexPath) as! HourlySectionCell
-            
-            cell.collectionView.dataSource = self
-            cell.collectionView.delegate = self
-            cell.collectionView.register(UINib(nibName: "HourlyCell", bundle: nil),
-                                         forCellWithReuseIdentifier: "HourlyCell")
-            cell.collectionView.reloadData()
-            
-            return cell
-            
-        } else if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DailyForecastCell", for: indexPath) as! DailyForecastCell
-            return cell
-            
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherInfoCell", for: indexPath) as! WeatherInfoCell
-            cell.backgroundColor = .clear
-            cell.contentView.backgroundColor = .clear
-            return cell
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 160
-        } else if indexPath.row == 1 {
-            return 500
-        } else {
-            return 350
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.row != 0 else { return }
-        let detailVC = WeatherDetailViewController(nibName: "WeatherDetailViewController", bundle: nil)
-        detailVC.forecastItems = viewModel.forecast?.list ?? []
-        present(detailVC, animated: true)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return hourlyForecast.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyCell", for: indexPath) as! HourlyCell
-        
-        let item = hourlyForecast[indexPath.item]
-
-        cell.configure(with: item)
-        if indexPath.item == 0 {
-                cell.timeLabel.text = "Now"
-            }
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailVC = WeatherDetailViewController(nibName: "WeatherDetailViewController", bundle: nil)
-        detailVC.forecastItems = viewModel.forecast?.list ?? []
-        present(detailVC, animated: true)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: 70, height: 120)
-    }
-    
     func updateBackground() {
         let hour = Calendar.current.component(.hour, from: Date())
         
@@ -228,22 +148,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             weatherBackgroundImageView.image = UIImage(named: "nightbackground")
                 }    }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let yOffset = scrollView.contentOffset.y + tableView.contentInset.top
-        let progress = min(max(yOffset / 80, 0), 1)
-
-        tempLabel.alpha = 1 - progress
-        conditionLabel.alpha = 1 - progress
-
-        let moveY = -20 * progress
-        tempLabel.transform = CGAffineTransform(translationX: 0, y: moveY)
-        conditionLabel.transform = CGAffineTransform(translationX: 0, y: moveY)
-
-        cityLabel.transform = .identity
-        cityLabel.alpha = 1
-
-        navigationItem.title = ""
-    }
+    
     func fetchForecast(for city: String) {
         viewModel.loadForecast(for: city) { [weak self] result in
             guard let self = self else { return }
@@ -284,4 +189,109 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         present(alert, animated: true)
     }
   
+}
+
+    extension ViewController: UISearchBarDelegate {
+        func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+            openSearchScreen(initialText: searchBar.text ?? "")
+            return false
+        }
+    }
+    extension ViewController: UITableViewDataSource {
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            3
+        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HourlySectionCell", for: indexPath) as! HourlySectionCell
+                
+                cell.collectionView.dataSource = self
+                cell.collectionView.delegate = self
+                cell.collectionView.register(UINib(nibName: "HourlyCell", bundle: nil),
+                                             forCellWithReuseIdentifier: "HourlyCell")
+                cell.collectionView.reloadData()
+                
+                return cell
+                
+            } else if indexPath.row == 1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DailyForecastCell", for: indexPath) as! DailyForecastCell
+                return cell
+                
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherInfoCell", for: indexPath) as! WeatherInfoCell
+                cell.backgroundColor = .clear
+                cell.contentView.backgroundColor = .clear
+                return cell
+            }
+        }
+    }
+    extension ViewController: UITableViewDelegate {
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            if indexPath.row == 0 {
+                return 160
+            } else if indexPath.row == 1 {
+                return 500
+            } else {
+                return 350
+            }
+        }
+        
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            guard indexPath.row != 0 else { return }
+            let detailVC = WeatherDetailViewController(nibName: "WeatherDetailViewController", bundle: nil)
+            detailVC.forecastItems = viewModel.forecast?.list ?? []
+            present(detailVC, animated: true)
+        }
+        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            let yOffset = scrollView.contentOffset.y + tableView.contentInset.top
+            let progress = min(max(yOffset / 80, 0), 1)
+            
+            tempLabel.alpha = 1 - progress
+            conditionLabel.alpha = 1 - progress
+            
+            let moveY = -20 * progress
+            tempLabel.transform = CGAffineTransform(translationX: 0, y: moveY)
+            conditionLabel.transform = CGAffineTransform(translationX: 0, y: moveY)
+            
+            cityLabel.transform = .identity
+            cityLabel.alpha = 1
+            
+            navigationItem.title = ""
+        }
+    }
+
+extension ViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return hourlyForecast.count
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyCell", for: indexPath) as! HourlyCell
+        
+        let item = hourlyForecast[indexPath.item]
+        
+        cell.configure(with: item)
+        if indexPath.item == 0 {
+            cell.timeLabel.text = "Now"
+        }
+        return cell
+    }
+}
+extension ViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailVC = WeatherDetailViewController(nibName: "WeatherDetailViewController", bundle: nil)
+        detailVC.forecastItems = viewModel.forecast?.list ?? []
+        present(detailVC, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: 70, height: 120)
+    }
+}
+extension ViewController: CLLocationManagerDelegate {
 }
