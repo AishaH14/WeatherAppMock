@@ -9,7 +9,7 @@ import UIKit
 
 final class SunArcView: UIView {
   
-    enum SunArcDrawer {
+    
         
         private enum Constants {
             static let horizonYMultiplier: CGFloat = 0.33
@@ -29,7 +29,7 @@ final class SunArcView: UIView {
             static let sunShadowOpacity: Float = 0.9
             static let sunShadowRadius: CGFloat = 8
         }
-        
+    
         static func draw(on view: UIView) {
             remove(from: view)
             
@@ -80,4 +80,4 @@ final class SunArcView: UIView {
                 .forEach { $0.removeFromSuperlayer() }
         }
     }
-}
+

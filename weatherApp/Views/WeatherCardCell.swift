@@ -52,15 +52,15 @@ class WeatherCardCell: UICollectionViewCell {
             lineContainerView.isHidden = !isSunrise
             
             if isSunrise {
-                SunArcView.SunArcDrawer.draw(on: cardView)
+                SunArcView.draw(on: cardView)
             } else {
-                SunArcView.SunArcDrawer.remove(from: cardView)
+                SunArcView.remove(from: cardView)
             }
         }
         override func prepareForReuse() {
             super.prepareForReuse()
             lineContainerView.isHidden = true
-            SunArcView.SunArcDrawer.remove(from: cardView)
+            SunArcView.remove(from: cardView)
         }
     }
 
