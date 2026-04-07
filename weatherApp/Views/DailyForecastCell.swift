@@ -34,7 +34,7 @@ class DailyForecastCell: UITableViewCell, UITableViewDataSource, UITableViewDele
     override func awakeFromNib() {
         super.awakeFromNib()
         cardView.layer.cornerRadius = 20
-        cardView.layer.masksToBounds = true
+            cardView.layer.masksToBounds = true
         dailyTableView.dataSource = self
         dailyTableView.delegate = self
 
@@ -54,6 +54,11 @@ class DailyForecastCell: UITableViewCell, UITableViewDataSource, UITableViewDele
         dailyTableView.reloadData()
         dailyTableView.isUserInteractionEnabled = false
     }
+    func configureGradient() {
+            let hour = Calendar.current.component(.hour, from: Date())
+            let isDay = hour >= 6 && hour < 18
+            cardView.applyWeatherGradient(isDay: isDay)
+        }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return forecastData.count
@@ -71,14 +76,6 @@ class DailyForecastCell: UITableViewCell, UITableViewDataSource, UITableViewDele
         cell.weatherImage.tintColor = item.weatherType.color
         return cell
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let hour = Calendar.current.component(.hour, from: Date())
-        let isDay = hour >= 6 && hour < 18
-        cardView.applyWeatherGradient(colors: WeatherTheme.colors(isDay: isDay))
-    }
-    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }

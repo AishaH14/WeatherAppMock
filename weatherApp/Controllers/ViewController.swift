@@ -211,12 +211,14 @@ class ViewController: UIViewController {
                 cell.collectionView.delegate = self
                 cell.collectionView.register(UINib(nibName: "HourlyCell", bundle: nil),
                                              forCellWithReuseIdentifier: "HourlyCell")
+                cell.configureGradient()
                 cell.collectionView.reloadData()
                 
                 return cell
                 
             } else if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DailyForecastCell", for: indexPath) as! DailyForecastCell
+                cell.configureGradient()
                 return cell
                 
             } else {

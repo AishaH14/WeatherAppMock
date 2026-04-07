@@ -39,28 +39,32 @@ extension WeatherInfoCell: UICollectionViewDataSource {
             cell.valueLabel.text = "6:17 AM"
             cell.bottomLabel.text = "Sunset: 5:56 PM"
             cell.imageLabel.image = UIImage(systemName: "sunrise.fill")
-
+            
         case 1:
             cell.titleLabel.text = "PRECIPITATION"
             cell.valueLabel.text = "0 mm"
             cell.bottomLabel.text = "None expected in next 10 days."
             cell.imageLabel.image = UIImage(systemName: "drop.fill")
-
+           
         case 2:
             cell.titleLabel.text = "VISIBILITY"
             cell.valueLabel.text = "22 km"
             cell.bottomLabel.text = "Perfectly clear view."
             cell.imageLabel.image = UIImage(systemName: "eye.fill")
-
+           
         default:
             cell.titleLabel.text = "HUMIDITY"
             cell.valueLabel.text = "72%"
             cell.bottomLabel.text = "The dew point is 7° right now."
             cell.imageLabel.image = UIImage(systemName: "humidity.fill")
+            
         }
 
         cell.imageLabel.tintColor = UIColor.white.withAlphaComponent(0.7)
+        cell.configureGradient()
+        cell.updateSunriseUI()
         return cell
+        
     }
 }
 extension WeatherInfoCell: UICollectionViewDelegateFlowLayout {

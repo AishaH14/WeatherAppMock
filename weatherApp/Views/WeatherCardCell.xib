@@ -104,7 +104,6 @@
             </constraints>
             <size key="customSize" width="193" height="232"/>
             <connections>
-                <outlet property="arcView" destination="ICV-IB-bcv" id="qPz-MI-cuL"/>
                 <outlet property="bottomLabel" destination="8YO-k1-UZH" id="z9h-cg-zSg"/>
                 <outlet property="cardView" destination="abo-Kb-keE" id="PBR-3v-J1d"/>
                 <outlet property="imageLabel" destination="iIM-7t-Akm" id="VGX-IE-0eF"/>

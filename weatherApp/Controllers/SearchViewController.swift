@@ -56,7 +56,7 @@ class SearchViewController: UIViewController   {
         let hour = Calendar.current.component(.hour, from: Date())
         let isDay = hour >= 6 && hour < 18
         
-        view.applyWeatherGradient(colors: WeatherTheme.colors(isDay: isDay))
+        view.applyWeatherGradient(isDay: isDay)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -73,7 +73,7 @@ class SearchViewController: UIViewController   {
         let hour = Calendar.current.component(.hour, from: Date())
         let isDay = hour >= 6 && hour < 18
         
-        view.applyWeatherGradient(colors: WeatherTheme.colors(isDay: isDay))
+        view.applyWeatherGradient(isDay: isDay)
         
         tableView.backgroundColor = .clear
         tableView.isOpaque = false

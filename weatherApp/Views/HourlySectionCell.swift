@@ -16,11 +16,6 @@ class HourlySectionCell: UITableViewCell {
         
         backgroundColor = .clear
         contentView.backgroundColor = .clear
-
-        let hour = Calendar.current.component(.hour, from: Date())
-        let isDay = hour >= 6 && hour < 18
-        containerView.applyWeatherGradient(colors: WeatherTheme.colors(isDay: isDay))
-        
         collectionView.backgroundColor = .clear
         collectionView.isUserInteractionEnabled = true
         collectionView.isScrollEnabled = true
@@ -32,6 +27,11 @@ class HourlySectionCell: UITableViewCell {
            }
        
     }
+    func configureGradient() {
+           let hour = Calendar.current.component(.hour, from: Date())
+           let isDay = hour >= 6 && hour < 18
+           containerView.applyWeatherGradient(isDay: isDay)
+       }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
