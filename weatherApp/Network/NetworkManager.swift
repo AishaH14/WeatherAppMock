@@ -6,6 +6,11 @@
 //
 import Foundation
 
+enum NetworkError: Error {
+    case invalidResponse
+    case httpError(statusCode: Int)
+    case noData
+}
 final class NetworkManager {
     
     static let shared = NetworkManager()
@@ -24,10 +29,17 @@ final class NetworkManager {
                 completion(.failure(error))
                 return
             }
-            
-           
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(NetworkError.invalidResponse))
+                            return
+                        }
+                        
+                        guard httpResponse.statusCode == 200 else {
+                            completion(.failure(NetworkError.httpError(statusCode: httpResponse.statusCode)))
+                            return
+                        }
             guard let data = data else {
-                completion(.failure(NSError(domain: "NoData", code: -1)))
+                completion(.failure(NetworkError.noData))
                 return
             }
             
