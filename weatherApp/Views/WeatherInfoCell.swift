@@ -7,13 +7,29 @@
 
 import UIKit
 
-class WeatherInfoCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
+class WeatherInfoCell: UITableViewCell {
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.isUserInteractionEnabled = false
+        collectionView.register(UINib(nibName: WeatherCardCell.identifier, bundle: nil), forCellWithReuseIdentifier: WeatherCardCell.identifier)
+        
+    }
+}
+
+extension WeatherInfoCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 4
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WeatherCardCell.identifier, for: indexPath) as? WeatherCardCell else {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: WeatherCardCell.identifier,
+            for: indexPath
+        ) as? WeatherCardCell else {
             return UICollectionViewCell()
         }
 
@@ -44,21 +60,10 @@ class WeatherInfoCell: UITableViewCell, UICollectionViewDataSource, UICollection
         }
 
         cell.imageLabel.tintColor = UIColor.white.withAlphaComponent(0.7)
-
         return cell
     }
-    
-    
-
-    @IBOutlet weak var collectionView: UICollectionView!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        collectionView.dataSource = self
-                collectionView.delegate = self
-        collectionView.isUserInteractionEnabled = false
-        collectionView.register(UINib(nibName: "WeatherCardCell", bundle: nil), forCellWithReuseIdentifier: "WeatherCardCell")
-
-    }
+}
+extension WeatherInfoCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
