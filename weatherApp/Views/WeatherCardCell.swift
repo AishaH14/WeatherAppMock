@@ -8,6 +8,7 @@
 import UIKit
 
 class WeatherCardCell: UICollectionViewCell {
+    static let identifier = "WeatherCardCell"
     @IBOutlet weak var arcView: UIView!
     @IBOutlet weak var cardView: UIView!
     @IBOutlet weak var imageLabel: UIImageView!

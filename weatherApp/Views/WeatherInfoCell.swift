@@ -13,7 +13,9 @@ class WeatherInfoCell: UITableViewCell, UICollectionViewDataSource, UICollection
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherCardCell", for: indexPath) as! WeatherCardCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WeatherCardCell.identifier, for: indexPath) as? WeatherCardCell else {
+            return UICollectionViewCell()
+        }
 
         switch indexPath.item {
         case 0:
