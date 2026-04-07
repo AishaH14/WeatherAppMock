@@ -8,13 +8,13 @@ import Foundation
 
 final class WeatherService {
     
-    private let apiKey = "2de8e5316b9cf195e13078904b129e8c"
+    private let apiKey = AppConfig.apiKey
     
     func fetchCurrentWeather(for city: String,
                              completion: @escaping (Result<WeatherResponse, Error>) -> Void) {
         
         guard let url = WeatherEndpoint.currentWeather(city: city, apiKey: apiKey).url else {
-                   print("Invalid current weather URL")
+            completion(.failure(NetworkError.invalidURL))
                    return
                }
         
@@ -26,7 +26,7 @@ final class WeatherService {
                        completion: @escaping (Result<ForecastResponse, Error>) -> Void) {
         
         guard let url = WeatherEndpoint.forecast(city: city, apiKey: apiKey).url else {
-                    print("Invalid forecast URL")
+            completion(.failure(NetworkError.invalidURL))
                     return
                 }
         NetworkManager.shared.request(url: url, completion: completion)

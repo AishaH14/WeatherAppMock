@@ -26,5 +26,7 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app uses your location to show weather for your current area.</string>
+	<key>API_KEY</key>
+	<string>2de8e5316b9cf195e13078904b129e8c</string>
 </dict>
 </plist>

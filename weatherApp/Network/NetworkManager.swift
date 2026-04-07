@@ -10,6 +10,7 @@ enum NetworkError: Error {
     case invalidResponse
     case httpError(statusCode: Int)
     case noData
+    case invalidURL
 }
 final class NetworkManager {
     
