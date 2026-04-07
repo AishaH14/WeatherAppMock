@@ -13,32 +13,22 @@ final class WeatherService {
     func fetchCurrentWeather(for city: String,
                              completion: @escaping (Result<WeatherResponse, Error>) -> Void) {
         
-        let cityEncoded = city.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? city
+        guard let url = WeatherEndpoint.currentWeather(city: city, apiKey: apiKey).url else {
+                   print("Invalid current weather URL")
+                   return
+               }
         
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(cityEncoded)&appid=\(apiKey)&units=metric"
-        
-        guard let url = URL(string: urlString) else {
-            print("Invalid current weather URL")
-            return
-        }
-        
-      
+
         NetworkManager.shared.request(url: url, completion: completion)
     }
     
     func fetchForecast(for city: String,
                        completion: @escaping (Result<ForecastResponse, Error>) -> Void) {
         
-        let cityEncoded = city.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? city
-        
-        let urlString = "https://api.openweathermap.org/data/2.5/forecast?q=\(cityEncoded)&appid=\(apiKey)&units=metric"
-        
-        guard let url = URL(string: urlString) else {
-            print("Invalid forecast URL")
-            return
-        }
-        
-        
+        guard let url = WeatherEndpoint.forecast(city: city, apiKey: apiKey).url else {
+                    print("Invalid forecast URL")
+                    return
+                }
         NetworkManager.shared.request(url: url, completion: completion)
     }
 }
