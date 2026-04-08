@@ -107,6 +107,7 @@ class ViewController: UIViewController {
                 
             case .failure(let error):
                 DispatchQueue.main.async {
+                    self.loadingIndicator.stopAnimating()
                     self.showErrorAlert(message: error.localizedDescription)
                 }
             }
@@ -206,14 +207,7 @@ class ViewController: UIViewController {
             
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HourlySectionCell", for: indexPath) as! HourlySectionCell
-                
-                cell.collectionView.dataSource = self
-                cell.collectionView.delegate = self
-                cell.collectionView.register(UINib(nibName: "HourlyCell", bundle: nil),
-                                             forCellWithReuseIdentifier: "HourlyCell")
-                cell.configureGradient()
-                cell.collectionView.reloadData()
-                
+                cell.configure(with: hourlyForecast)
                 return cell
                 
             } else if indexPath.row == 1 {
@@ -263,37 +257,5 @@ class ViewController: UIViewController {
             navigationItem.title = ""
         }
     }
-
-extension ViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return hourlyForecast.count
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyCell", for: indexPath) as! HourlyCell
-        
-        let item = hourlyForecast[indexPath.item]
-        
-        cell.configure(with: item)
-        if indexPath.item == 0 {
-            cell.timeLabel.text = "Now"
-        }
-        return cell
-    }
-}
-extension ViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailVC = WeatherDetailViewController(nibName: "WeatherDetailViewController", bundle: nil)
-        detailVC.forecastItems = viewModel.forecast?.list ?? []
-        present(detailVC, animated: true)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: 70, height: 120)
-    }
-}
 extension ViewController: CLLocationManagerDelegate {
 }

@@ -8,12 +8,11 @@
 import UIKit
 
 class HourlySectionCell: UITableViewCell {
-
+    private var hourlyForecast: [ForecastItem] = []
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         collectionView.backgroundColor = .clear
@@ -21,21 +20,61 @@ class HourlySectionCell: UITableViewCell {
         collectionView.isScrollEnabled = true
            collectionView.alwaysBounceHorizontal = true
            collectionView.showsHorizontalScrollIndicator = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(
+                    UINib(nibName: "HourlyCell", bundle: nil),
+                    forCellWithReuseIdentifier: "HourlyCell"
+                )
 
            if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
                layout.scrollDirection = .horizontal
            }
        
     }
+    func configure(with items: [ForecastItem]) {
+            hourlyForecast = items
+            configureGradient()
+            collectionView.reloadData()
+        }
     func configureGradient() {
            let hour = Calendar.current.component(.hour, from: Date())
            let isDay = hour >= 6 && hour < 18
            containerView.applyWeatherGradient(isDay: isDay)
        }
-
+    override func prepareForReuse() {
+           super.prepareForReuse()
+           hourlyForecast = []
+       }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
     }
 
+}
+extension HourlySectionCell: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return hourlyForecast.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyCell", for: indexPath) as! HourlyCell
+
+        let item = hourlyForecast[indexPath.item]
+        cell.configure(with: item)
+
+        if indexPath.item == 0 {
+            cell.timeLabel.text = "Now"
+        }
+
+        return cell
+    }
+}
+
+extension HourlySectionCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 70, height: 120)
+    }
 }
