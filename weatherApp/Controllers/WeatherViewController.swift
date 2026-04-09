@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+// WeatherViewController.swift
 //  weatherApp
 //
 //  Created by Aisha Hudasi on 15/09/1447 AH.
@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController {
+class WeatherViewController: UIViewController {
     
     var hasShownCityTitle = false
     var isShowingSearch = false
@@ -51,14 +51,14 @@ class ViewController: UIViewController {
             .foregroundColor: UIColor.white
         ]
         
-        tableView.register(UINib(nibName: "HourlySectionCell", bundle: nil),
-                           forCellReuseIdentifier: "HourlySectionCell")
-        
-        tableView.register(UINib(nibName: "DailyForecastCell", bundle: nil),
-                           forCellReuseIdentifier: "DailyForecastCell")
-        
-        tableView.register(UINib(nibName: "WeatherInfoCell", bundle: nil),
-                           forCellReuseIdentifier: "WeatherInfoCell")
+        tableView.register(UINib(nibName: Constants.hourlySectionCell, bundle: nil),
+                           forCellReuseIdentifier: Constants.hourlySectionCell)
+
+        tableView.register(UINib(nibName: Constants.dailyForecastCell, bundle: nil),
+                           forCellReuseIdentifier: Constants.dailyForecastCell)
+
+        tableView.register(UINib(nibName: Constants.weatherInfoCell, bundle: nil),
+                           forCellReuseIdentifier: Constants.weatherInfoCell)
         
         tableView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         
@@ -128,9 +128,6 @@ class ViewController: UIViewController {
             self.searchBar.text = city
             self.fetchCurrentWeather(for: city)
             self.fetchForecast(for: city)
-            
-            
-            
         }
         
         searchVC.onDismiss = { [weak self] in
@@ -192,38 +189,38 @@ class ViewController: UIViewController {
   
 }
 
-    extension ViewController: UISearchBarDelegate {
+    extension WeatherViewController: UISearchBarDelegate {
         func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
             openSearchScreen(initialText: searchBar.text ?? "")
             return false
         }
     }
-    extension ViewController: UITableViewDataSource {
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            3
-        }
-        
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            
-            if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "HourlySectionCell", for: indexPath) as! HourlySectionCell
-                cell.configure(with: hourlyForecast)
-                return cell
-                
-            } else if indexPath.row == 1 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "DailyForecastCell", for: indexPath) as! DailyForecastCell
-                cell.configureGradient()
-                return cell
-                
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherInfoCell", for: indexPath) as! WeatherInfoCell
-                cell.backgroundColor = .clear
-                cell.contentView.backgroundColor = .clear
-                return cell
-            }
+extension WeatherViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        3
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.hourlySectionCell, for: indexPath) as! HourlySectionCell
+            cell.configure(with: hourlyForecast)
+            return cell
+
+        } else if indexPath.row == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.dailyForecastCell, for: indexPath) as! DailyForecastCell
+            cell.configure(with: DailyForecastData.items)
+            return cell
+
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.weatherInfoCell, for: indexPath) as! WeatherInfoCell
+            cell.backgroundColor = .clear
+            cell.contentView.backgroundColor = .clear
+            return cell
         }
     }
-    extension ViewController: UITableViewDelegate {
+}
+    extension WeatherViewController: UITableViewDelegate {
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             if indexPath.row == 0 {
                 return 160
@@ -257,5 +254,6 @@ class ViewController: UIViewController {
             navigationItem.title = ""
         }
     }
-extension ViewController: CLLocationManagerDelegate {
+extension WeatherViewController: CLLocationManagerDelegate {
 }
+

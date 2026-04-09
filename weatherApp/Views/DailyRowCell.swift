@@ -8,7 +8,6 @@
 import UIKit
 
 class DailyRowCell: UITableViewCell {
-
     @IBOutlet weak var tempBarView: UIView!
     @IBOutlet weak var tempMaxLabel: UILabel!
     @IBOutlet weak var tempMinLabel: UILabel!

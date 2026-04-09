@@ -9,7 +9,6 @@ import UIKit
 
 class HourlyCell: UICollectionViewCell, Configurable {
     typealias Model = ForecastItem
-    
     @IBOutlet weak var containerView: UIStackView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var weatherImage: UIImageView!

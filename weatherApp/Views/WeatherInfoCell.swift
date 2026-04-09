@@ -8,7 +8,6 @@
 import UIKit
 
 class WeatherInfoCell: UITableViewCell {
-    
     @IBOutlet weak var collectionView: UICollectionView!
     override func awakeFromNib() {
         super.awakeFromNib()

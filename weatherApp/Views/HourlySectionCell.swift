@@ -23,8 +23,8 @@ class HourlySectionCell: UITableViewCell {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(
-                    UINib(nibName: "HourlyCell", bundle: nil),
-                    forCellWithReuseIdentifier: "HourlyCell"
+            UINib(nibName: Constants.hourlyCell, bundle: nil),
+            forCellWithReuseIdentifier:Constants.hourlyCell
                 )
 
            if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -58,7 +58,7 @@ extension HourlySectionCell: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyCell", for: indexPath) as! HourlyCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.hourlyCell, for: indexPath) as! HourlyCell
 
         let item = hourlyForecast[indexPath.item]
         cell.configure(with: item)

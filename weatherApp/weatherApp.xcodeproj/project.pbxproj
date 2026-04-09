@@ -6,9 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CA7651172F87EA9D007EF34A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7651162F87E806007EF34A /* Constants.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		CA6FA85E2F5FCD5500E20C59 /* weatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA6FA8612F5FCF4100E20C59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA7651162F87E806007EF34A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -65,9 +70,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CA7651152F87E7EC007EF34A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				CA7651162F87E806007EF34A /* Constants.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		CAAB985C2F58457E008D4548 = {
 			isa = PBXGroup;
 			children = (
+				CA7651152F87E7EC007EF34A /* Utilities */,
 				CA71E97C2F7D488F00DEE8DD /* Network */,
 				CA8E89262F7C635800B24430 /* ViewModels */,
 				CA2C84102F5FB8910076143E /* APP */,
@@ -162,6 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA7651172F87EA9D007EF34A /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
