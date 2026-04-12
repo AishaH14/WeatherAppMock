@@ -41,7 +41,6 @@ class WeatherViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.contentInset = .zero
         tableView.contentInsetAdjustmentBehavior = .never
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -119,7 +118,6 @@ class WeatherViewController: UIViewController {
         isShowingSearch = true
         
         let searchVC = SearchViewController(nibName: "SearchViewController", bundle: nil)
-        searchVC.modalPresentationStyle = .fullScreen
         searchVC.initialSearchText = initialText
         
         searchVC.onCitySelected = { [weak self] city in
@@ -197,23 +195,45 @@ class WeatherViewController: UIViewController {
     }
 extension WeatherViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        return WeatherRow.allCases.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.hourlySectionCell, for: indexPath) as! HourlySectionCell
+        guard let row = WeatherRow(rawValue: indexPath.row) else {
+            return UITableViewCell()
+        }
+        
+        switch row {
+        case .hourly:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.hourlySectionCell,
+                for: indexPath
+            ) as? HourlySectionCell else {
+                return UITableViewCell()
+            }
+            
             cell.configure(with: hourlyForecast)
             return cell
-
-        } else if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.dailyForecastCell, for: indexPath) as! DailyForecastCell
+            
+        case .dailyForecast:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.dailyForecastCell,
+                for: indexPath
+            ) as? DailyForecastCell else {
+                return UITableViewCell()
+            }
+            
             cell.configure(with: DailyForecastData.items)
             return cell
-
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.weatherInfoCell, for: indexPath) as! WeatherInfoCell
+            
+        case .weatherInfo:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.weatherInfoCell,
+                for: indexPath
+            ) as? WeatherInfoCell else {
+                return UITableViewCell()
+            }
+            
             cell.backgroundColor = .clear
             cell.contentView.backgroundColor = .clear
             return cell
@@ -222,17 +242,24 @@ extension WeatherViewController: UITableViewDataSource {
 }
     extension WeatherViewController: UITableViewDelegate {
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            if indexPath.row == 0 {
+            guard let row = WeatherRow(rawValue: indexPath.row) else {
+                return 0
+            }
+
+            switch row {
+            case .hourly:
                 return 160
-            } else if indexPath.row == 1 {
+            case .dailyForecast:
                 return 500
-            } else {
+            case .weatherInfo:
                 return 350
             }
         }
         
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            guard indexPath.row != 0 else { return }
+            guard let row = WeatherRow(rawValue: indexPath.row) else { return }
+            guard row != .hourly else { return }
+
             let detailVC = WeatherDetailViewController(nibName: "WeatherDetailViewController", bundle: nil)
             detailVC.forecastItems = viewModel.forecast?.list ?? []
             present(detailVC, animated: true)
@@ -257,3 +284,8 @@ extension WeatherViewController: UITableViewDataSource {
 extension WeatherViewController: CLLocationManagerDelegate {
 }
 
+private enum WeatherRow: Int, CaseIterable {
+    case hourly
+    case dailyForecast
+    case weatherInfo
+}
