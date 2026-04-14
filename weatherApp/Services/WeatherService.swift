@@ -9,14 +9,14 @@ import Foundation
 final class WeatherService {
     
      let apiKey = AppConfig.apiKey
-     let requestBuilder = URLRequestBuilder()
+    let requestBuilder = URLRequestBuilder(apiKey: AppConfig.apiKey)
     
     func fetchCurrentWeather(
         lat: Double,
         lon: Double,
         completion: @escaping (Result<WeatherResponse, Error>) -> Void
     ) {
-        let apiRequest = WeatherEndpoint.currentWeather(lat: lat, lon: lon, apiKey: apiKey).request
+        let apiRequest = WeatherEndpoint.currentWeather(lat: lat, lon: lon)
         
         guard let request = requestBuilder.build(from: apiRequest) else {
             completion(.failure(NetworkError.invalidURL))
@@ -31,7 +31,7 @@ final class WeatherService {
         lon: Double,
         completion: @escaping (Result<ForecastResponse, Error>) -> Void
     ) {
-        let apiRequest = WeatherEndpoint.forecast(lat: lat, lon: lon, apiKey: apiKey).request
+        let apiRequest = WeatherEndpoint.forecast(lat: lat, lon: lon)
         
         guard let request = requestBuilder.build(from: apiRequest) else {
             completion(.failure(NetworkError.invalidURL))

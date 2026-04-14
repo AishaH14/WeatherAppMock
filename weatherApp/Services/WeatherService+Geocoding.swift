@@ -13,7 +13,7 @@ extension WeatherService {
         for city: String,
         completion: @escaping (Result<GeocodingResponse, Error>) -> Void
     ) {
-        let apiRequest = WeatherEndpoint.geocoding(city: city, apiKey: apiKey).request
+        let apiRequest = WeatherEndpoint.geocoding(city: city)
         
         guard let request = requestBuilder.build(from: apiRequest) else {
             completion(.failure(NetworkError.invalidURL))

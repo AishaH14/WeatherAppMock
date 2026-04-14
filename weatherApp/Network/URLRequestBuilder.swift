@@ -7,14 +7,20 @@
 import Foundation
 
 struct URLRequestBuilder {
-    
     private let baseURL = "https://api.openweathermap.org"
-    
-    func build(from apiRequest: APIRequest) -> URLRequest? {
+    private let apiKey: String
+    init(apiKey: String) {
+            self.apiKey = apiKey
+        }
+    func build(from apiRequest: EndpointContract) -> URLRequest? {
         var components = URLComponents(string: baseURL)
         components?.path = apiRequest.path
-        components?.queryItems = apiRequest.queryItems.isEmpty ? nil : apiRequest.queryItems
-        
+        var queryparameters = apiRequest.items
+        queryparameters["appid"] = apiKey
+                if apiRequest.shouldIncludeMetricUnits {
+                    queryparameters["units"] = "metric"
+                }
+        components?.queryItems = queryparameters.map{URLQueryItem(name: $0.key, value: $0.value) }
         guard let url = components?.url else { return nil }
         
         var request = URLRequest(url: url)
