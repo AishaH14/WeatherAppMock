@@ -11,7 +11,7 @@
             <connections>
                 <outlet property="cityLabel" destination="ivx-9N-ylU" id="AfD-4u-BfL"/>
                 <outlet property="conditionLabel" destination="p6p-Zk-jIS" id="lkp-2v-7Tl"/>
-                <outlet property="currentInfoView" destination="Xet-Ed-tUf" id="VN1-uu-VR0"/>
+                <outlet property="currentInfoView" destination="CwI-y7-86O" id="eSH-Xj-e0M"/>
                 <outlet property="searchBar" destination="5aM-yJ-1XO" id="Qcp-P6-LGC"/>
                 <outlet property="tableView" destination="QC7-A4-KOK" id="zdp-ZW-pIs"/>
                 <outlet property="tempLabel" destination="QWm-Vf-aDN" id="h0K-IK-dwH"/>
@@ -32,10 +32,10 @@
                     <rect key="frame" x="0.0" y="132" width="393" height="128"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="bMh-dH-6ee">
-                            <rect key="frame" x="65" y="0.0" width="263" height="101.66666666666667"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="101.66666666666667"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Xet-Ed-tUf">
-                                    <rect key="frame" x="119.66666666666666" y="0.99999999999999822" width="24" height="18.666666666666664"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="location.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Xet-Ed-tUf">
+                                    <rect key="frame" x="184.66666666666666" y="0.99999999999999822" width="24" height="18.666666666666664"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
@@ -43,19 +43,19 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ivx-9N-ylU">
-                                    <rect key="frame" x="110.99999999999999" y="24.333333333333343" width="41.333333333333329" height="20.333333333333329"/>
+                                    <rect key="frame" x="176" y="24.333333333333343" width="41.333333333333343" height="20.333333333333329"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWm-Vf-aDN">
-                                    <rect key="frame" x="103.33333333333336" y="48.666666666666657" width="56.666666666666671" height="28.666666666666671"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWm-Vf-aDN">
+                                    <rect key="frame" x="168.33333333333334" y="48.666666666666657" width="56.666666666666657" height="28.666666666666671"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6p-Zk-jIS">
-                                    <rect key="frame" x="110.99999999999999" y="81.333333333333343" width="41.333333333333329" height="20.333333333333329"/>
+                                    <rect key="frame" x="176" y="81.333333333333343" width="41.333333333333343" height="20.333333333333329"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -66,9 +66,9 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="bMh-dH-6ee" firstAttribute="centerX" secondItem="CwI-y7-86O" secondAttribute="centerX" id="9UG-wX-nok"/>
                         <constraint firstItem="bMh-dH-6ee" firstAttribute="top" secondItem="CwI-y7-86O" secondAttribute="top" id="Cou-a0-xyD"/>
-                        <constraint firstItem="bMh-dH-6ee" firstAttribute="leading" secondItem="CwI-y7-86O" secondAttribute="leading" constant="65" id="lMA-tS-Hhi"/>
+                        <constraint firstItem="bMh-dH-6ee" firstAttribute="trailing" secondItem="CwI-y7-86O" secondAttribute="trailing" id="js4-kN-ooa"/>
+                        <constraint firstItem="bMh-dH-6ee" firstAttribute="leading" secondItem="CwI-y7-86O" secondAttribute="leading" id="lMA-tS-Hhi"/>
                     </constraints>
                 </view>
                 <tableView opaque="NO" clipsSubviews="YES" alpha="0.94999999999999996" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="always" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="QC7-A4-KOK">

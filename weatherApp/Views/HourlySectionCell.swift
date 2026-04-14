@@ -9,6 +9,7 @@ import UIKit
 
 class HourlySectionCell: UITableViewCell {
     private var hourlyForecast: [ForecastItem] = []
+    var onTapHourly: (() -> Void)?
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     override func awakeFromNib() {
@@ -76,5 +77,10 @@ extension HourlySectionCell: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 70, height: 120)
+    }
+}
+extension HourlySectionCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        onTapHourly?()
     }
 }

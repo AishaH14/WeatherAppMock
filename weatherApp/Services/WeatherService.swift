@@ -8,27 +8,36 @@ import Foundation
 
 final class WeatherService {
     
-    private let apiKey = AppConfig.apiKey
+     let apiKey = AppConfig.apiKey
+     let requestBuilder = URLRequestBuilder()
     
-    func fetchCurrentWeather(for city: String,
-                             completion: @escaping (Result<WeatherResponse, Error>) -> Void) {
+    func fetchCurrentWeather(
+        lat: Double,
+        lon: Double,
+        completion: @escaping (Result<WeatherResponse, Error>) -> Void
+    ) {
+        let apiRequest = WeatherEndpoint.currentWeather(lat: lat, lon: lon, apiKey: apiKey).request
         
-        guard let url = WeatherEndpoint.currentWeather(city: city, apiKey: apiKey).url else {
+        guard let request = requestBuilder.build(from: apiRequest) else {
             completion(.failure(NetworkError.invalidURL))
-                   return
-               }
+            return
+        }
         
-
-        NetworkManager.shared.request(url: url, completion: completion)
+        NetworkManager.shared.request(request: request, completion: completion)
     }
     
-    func fetchForecast(for city: String,
-                       completion: @escaping (Result<ForecastResponse, Error>) -> Void) {
+    func fetchForecast(
+        lat: Double,
+        lon: Double,
+        completion: @escaping (Result<ForecastResponse, Error>) -> Void
+    ) {
+        let apiRequest = WeatherEndpoint.forecast(lat: lat, lon: lon, apiKey: apiKey).request
         
-        guard let url = WeatherEndpoint.forecast(city: city, apiKey: apiKey).url else {
+        guard let request = requestBuilder.build(from: apiRequest) else {
             completion(.failure(NetworkError.invalidURL))
-                    return
-                }
-        NetworkManager.shared.request(url: url, completion: completion)
+            return
+        }
+        
+        NetworkManager.shared.request(request: request, completion: completion)
     }
 }

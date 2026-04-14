@@ -19,12 +19,10 @@ final class NetworkManager {
     private init() {}
     
     func request<T: Decodable>(
-        url: URL,
+        request: URLRequest,
         completion: @escaping (Result<T, Error>) -> Void
     ) {
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            
+        URLSession.shared.dataTask(with: request) { data, response, error in
             
             if let error = error {
                 completion(.failure(error))
@@ -32,19 +30,18 @@ final class NetworkManager {
             }
             guard let httpResponse = response as? HTTPURLResponse else {
                 completion(.failure(NetworkError.invalidResponse))
-                            return
-                        }
-                        
-                        guard httpResponse.statusCode == 200 else {
-                            completion(.failure(NetworkError.httpError(statusCode: httpResponse.statusCode)))
-                            return
-                        }
+                return
+            }
+            
+            guard httpResponse.statusCode == 200 else {
+                completion(.failure(NetworkError.httpError(statusCode: httpResponse.statusCode)))
+                return
+            }
+            
             guard let data = data else {
                 completion(.failure(NetworkError.noData))
                 return
             }
-            
-            
             do {
                 let decodedData = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(decodedData))

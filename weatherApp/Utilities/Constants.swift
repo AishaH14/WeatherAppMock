@@ -15,4 +15,5 @@ enum Constants {
     static let hourlyCell = "HourlyCell"
     static let dailyRowCell = "DailyRowCell"
     static let cityCell = "CityCell"
+    static let weatherDetailViewController = "WeatherDetailViewController"
 }

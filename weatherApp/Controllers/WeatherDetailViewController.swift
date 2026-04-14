@@ -53,7 +53,6 @@ class WeatherDetailViewController: UIViewController, UICalendarSelectionSingleDa
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         gradient.frame = view.bounds
-       // fullDateLabel.layer.cornerRadius = fullDateLabel.frame.height / 2
         fullDateLabel.layer.cornerRadius = 10
         fullDateLabel.clipsToBounds = true
     }
