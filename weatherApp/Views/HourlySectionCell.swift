@@ -59,7 +59,9 @@ extension HourlySectionCell: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.hourlyCell, for: indexPath) as! HourlyCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.hourlyCell, for: indexPath) as? HourlyCell else {
+            return UICollectionViewCell()
+        }
 
         let item = hourlyForecast[indexPath.item]
         cell.configure(with: item)
