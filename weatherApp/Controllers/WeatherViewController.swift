@@ -105,7 +105,43 @@ class WeatherViewController: UIViewController {
             loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
+    private func handleCurrentWeatherResult(
+        _ result: Result<Void, Error>,
+        cityName: String? = nil
+    ) {
+        switch result {
+        case .success:
+            DispatchQueue.main.async {
+                guard let data = self.viewModel.currentWeather else { return }
+                self.loadingIndicator.stopAnimating()
+                self.cityLabel.text = cityName ?? data.name
+                self.tempLabel.text = "\(Int(data.main.temp))°"
+                self.conditionLabel.text = data.weather.first?.description.capitalized ?? "Clear"
+            }
 
+        case .failure(let error):
+            DispatchQueue.main.async {
+                self.loadingIndicator.stopAnimating()
+                self.showErrorAlert(message: error.localizedDescription)
+            }
+        }
+    }
+
+    private func handleForecastResult(_ result: Result<Void, Error>) {
+        switch result {
+        case .success:
+            DispatchQueue.main.async {
+                guard let forecastList = self.viewModel.forecast?.list else { return }
+                self.hourlyForecast = Array(forecastList.prefix(8))
+                self.tableView.reloadData()
+            }
+
+        case .failure(let error):
+            DispatchQueue.main.async {
+                self.showErrorAlert(message: error.localizedDescription)
+            }
+        }
+    }
     func fetchCurrentWeather(for city: String) {
         DispatchQueue.main.async {
             self.loadingIndicator.startAnimating()
@@ -113,43 +149,23 @@ class WeatherViewController: UIViewController {
 
         viewModel.loadCurrentWeather(for: city) { [weak self] result in
             guard let self = self else { return }
-
-            switch result {
-            case .success:
-                DispatchQueue.main.async {
-                    guard let data = self.viewModel.currentWeather else { return }
-                    self.loadingIndicator.stopAnimating()
-                    self.cityLabel.text = city
-                    self.tempLabel.text = "\(Int(data.main.temp))°"
-                    self.conditionLabel.text = data.weather.first?.description.capitalized ?? "Clear"
-                }
-
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.loadingIndicator.stopAnimating()
-                    self.showErrorAlert(message: error.localizedDescription)
-                }
-            }
+            self.handleCurrentWeatherResult(result, cityName: city)
         }
     }
+    func fetchCurrentWeather(lat: Double, lon: Double) {
+        DispatchQueue.main.async {
+            self.loadingIndicator.startAnimating()
+        }
 
+        viewModel.loadCurrentWeather(lat: lat, lon: lon) { [weak self] result in
+            guard let self = self else { return }
+            self.handleCurrentWeatherResult(result)
+        }
+    }
     func fetchForecast(for city: String) {
         viewModel.loadForecast(for: city) { [weak self] result in
             guard let self = self else { return }
-
-            switch result {
-            case .success:
-                DispatchQueue.main.async {
-                    guard let forecastList = self.viewModel.forecast?.list else { return }
-                    self.hourlyForecast = Array(forecastList.prefix(8))
-                    self.tableView.reloadData()
-                }
-
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.showErrorAlert(message: error.localizedDescription)
-                }
-            }
+            self.handleForecastResult(result)
         }
     }
     private func loadDailyForecast() {
@@ -164,50 +180,11 @@ class WeatherViewController: UIViewController {
             }
         }
     }
-    func fetchCurrentWeather(lat: Double, lon: Double) {
-        DispatchQueue.main.async {
-            self.loadingIndicator.startAnimating()
-        }
-
-        viewModel.loadCurrentWeather(lat: lat, lon: lon) { [weak self] result in
-            guard let self = self else { return }
-
-            switch result {
-            case .success:
-                DispatchQueue.main.async {
-                    guard let data = self.viewModel.currentWeather else { return }
-                    self.loadingIndicator.stopAnimating()
-                    self.cityLabel.text = data.name
-                    self.tempLabel.text = "\(Int(data.main.temp))°"
-                    self.conditionLabel.text = data.weather.first?.description.capitalized ?? "Clear"
-                }
-
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.loadingIndicator.stopAnimating()
-                    self.showErrorAlert(message: error.localizedDescription)
-                }
-            }
-        }
-    }
-
+    
     func fetchForecast(lat: Double, lon: Double) {
         viewModel.loadForecast(lat: lat, lon: lon) { [weak self] result in
             guard let self = self else { return }
-
-            switch result {
-            case .success:
-                DispatchQueue.main.async {
-                    guard let forecastList = self.viewModel.forecast?.list else { return }
-                    self.hourlyForecast = Array(forecastList.prefix(8))
-                    self.tableView.reloadData()
-                }
-
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.showErrorAlert(message: error.localizedDescription)
-                }
-            }
+            self.handleForecastResult(result)
         }
     }
 

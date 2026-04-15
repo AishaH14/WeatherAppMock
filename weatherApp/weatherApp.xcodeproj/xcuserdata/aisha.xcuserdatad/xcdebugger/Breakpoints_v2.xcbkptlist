@@ -14,9 +14,9 @@
             filePath = "Controllers/WeatherViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
-            landmarkName = "openWeatherDetail()"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
+            landmarkName = "openSearchScreen(initialText:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -30,9 +30,9 @@
             filePath = "Controllers/WeatherViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
-            landmarkName = "openWeatherDetail()"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
+            landmarkName = "openSearchScreen(initialText:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
