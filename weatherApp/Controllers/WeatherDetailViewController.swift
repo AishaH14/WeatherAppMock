@@ -57,10 +57,7 @@ class WeatherDetailViewController: UIViewController, UICalendarSelectionSingleDa
         fullDateLabel.clipsToBounds = true
     }
     func updateFullDateLabel(with date: Date) {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US")
-        formatter.dateFormat = "d MMMM yyyy"
-        fullDateLabel.text = formatter.string(from: date)
+        fullDateLabel.text = date.formattedFullDate()
     }
 
     func applyWeatherGradient() {
@@ -119,17 +116,14 @@ class WeatherDetailViewController: UIViewController, UICalendarSelectionSingleDa
             tempLabel.text = "\(Int(selectedItem.main.temp))°"
 
         
-        let condition = selectedItem.weather.first?.main ?? "Clear"
+        let condition = selectedItem.weather.first?.main.lowercased() ?? "clear"
         let weatherType = WeatherType(rawValue: condition) ?? .clear
 
         weatherImageView.image = weatherType.icon
         weatherImageView.tintColor = weatherType.color
     }
     func updateSelectedDateLabel(with date: Date) {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US")
-        formatter.dateFormat = "EEEE, d MMMM yyyy"
-        selectedDateLabel.text = formatter.string(from: date)
+        selectedDateLabel.text = date.formattedSelectedDate()
     }
     func showCalendarPopup() {
         if calendarOverlayView != nil { return }
