@@ -15,7 +15,7 @@ class SearchViewController: UIViewController   {
     var initialSearchText: String = ""
     var onDismiss: (() -> Void)?
     var onCitySelected: ((String) -> Void)?
- 
+    
     var filteredCities: [String] = []
     var cities: [String] = []
     override func viewDidLoad() {
@@ -37,7 +37,6 @@ class SearchViewController: UIViewController   {
         
         applySearchAppearance()
         loadCities()
-        filterCities(with: initialSearchText)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close,
@@ -117,12 +116,19 @@ class SearchViewController: UIViewController   {
             print("cities.json not found")
             return
         }
-
-        do {
-            let data = try Data(contentsOf: url)
-            cities = try JSONDecoder().decode([String].self, from: data)
-        } catch {
-            print("Failed to load cities: \(error)")
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            do {
+                let data = try Data(contentsOf: url)
+                let decodedCities = try JSONDecoder().decode([String].self, from: data)
+                
+                DispatchQueue.main.async {
+                    self?.cities = decodedCities
+                    self?.filterCities(with: self?.initialSearchText ?? "")
+                }
+            } catch {
+                print("Failed to load cities: \(error)")
+            }
         }
     }
 }
