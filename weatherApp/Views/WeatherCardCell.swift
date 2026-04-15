@@ -57,6 +57,16 @@ class WeatherCardCell: UICollectionViewCell {
                 SunArcView.remove(from: cardView)
             }
         }
+    func configure(with item: WeatherInfoCardItem) {
+        titleLabel.text = item.title
+        valueLabel.text = item.value
+        bottomLabel.text = item.bottomText
+        imageLabel.image = item.image
+        imageLabel.tintColor = UIColor.white.withAlphaComponent(0.7)
+        
+        configureGradient()
+        updateSunriseUI()
+    }
         override func prepareForReuse() {
             super.prepareForReuse()
             lineContainerView.isHidden = true

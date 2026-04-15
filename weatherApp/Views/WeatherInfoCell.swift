@@ -9,6 +9,34 @@ import UIKit
 
 class WeatherInfoCell: UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
+   
+        private let items: [WeatherInfoCardItem] = [
+            WeatherInfoCardItem(
+                title: "SUNRISE",
+                value: "6:17 AM",
+                bottomText: "Sunset: 5:56 PM",
+                image: UIImage(systemName: "sunrise.fill")
+            ),
+            WeatherInfoCardItem(
+                title: "PRECIPITATION",
+                value: "0 mm",
+                bottomText: "None expected in next 10 days.",
+                image: UIImage(systemName: "drop.fill")
+            ),
+            WeatherInfoCardItem(
+                title: "VISIBILITY",
+                value: "22 km",
+                bottomText: "Perfectly clear view.",
+                image: UIImage(systemName: "eye.fill")
+            ),
+            WeatherInfoCardItem(
+                title: "HUMIDITY",
+                value: "72%",
+                bottomText: "The dew point is 7° right now.",
+                image: UIImage(systemName: "humidity.fill")
+            )
+        ]
+        
     override func awakeFromNib() {
         super.awakeFromNib()
         collectionView.dataSource = self
@@ -21,7 +49,7 @@ class WeatherInfoCell: UITableViewCell {
 
 extension WeatherInfoCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        items.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -32,37 +60,9 @@ extension WeatherInfoCell: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        switch indexPath.item {
-        case 0:
-            cell.titleLabel.text = "SUNRISE"
-            cell.valueLabel.text = "6:17 AM"
-            cell.bottomLabel.text = "Sunset: 5:56 PM"
-            cell.imageLabel.image = UIImage(systemName: "sunrise.fill")
-            
-        case 1:
-            cell.titleLabel.text = "PRECIPITATION"
-            cell.valueLabel.text = "0 mm"
-            cell.bottomLabel.text = "None expected in next 10 days."
-            cell.imageLabel.image = UIImage(systemName: "drop.fill")
-           
-        case 2:
-            cell.titleLabel.text = "VISIBILITY"
-            cell.valueLabel.text = "22 km"
-            cell.bottomLabel.text = "Perfectly clear view."
-            cell.imageLabel.image = UIImage(systemName: "eye.fill")
-           
-        default:
-            cell.titleLabel.text = "HUMIDITY"
-            cell.valueLabel.text = "72%"
-            cell.bottomLabel.text = "The dew point is 7° right now."
-            cell.imageLabel.image = UIImage(systemName: "humidity.fill")
-            
-        }
-
-        cell.imageLabel.tintColor = UIColor.white.withAlphaComponent(0.7)
-        cell.configureGradient()
-        cell.updateSunriseUI()
-        return cell
+        let item = items[indexPath.item]
+                cell.configure(with: item)
+                return cell
         
     }
 }
@@ -90,12 +90,6 @@ extension WeatherInfoCell: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-    
     }
     
 }
