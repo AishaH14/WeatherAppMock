@@ -19,7 +19,6 @@ class DailyForecastCell: UITableViewCell {
         cardView.layer.cornerRadius = 20
         cardView.layer.masksToBounds = true
         dailyTableView.dataSource = self
-        dailyTableView.delegate = self
         
         dailyTableView.register(UINib(nibName: Constants.dailyRowCell, bundle: nil),
                                 forCellReuseIdentifier: Constants.dailyRowCell)
@@ -58,7 +57,12 @@ class DailyForecastCell: UITableViewCell {
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             print("daily row =", indexPath.row)
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.dailyRowCell, for: indexPath) as! DailyRowCell
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.dailyRowCell,
+                for: indexPath
+            ) as? DailyRowCell else {
+                return UITableViewCell()
+            }
             let item = forecastData[indexPath.row]
             
             cell.dayLabel.text = item.day
@@ -70,6 +74,3 @@ class DailyForecastCell: UITableViewCell {
         }
     
     }
-
-extension DailyForecastCell: UITableViewDelegate {
-}

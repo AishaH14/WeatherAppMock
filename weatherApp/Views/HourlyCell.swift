@@ -17,9 +17,6 @@ class HourlyCell: UICollectionViewCell, Configurable {
         super.awakeFromNib()
         
         backgroundColor = .clear
-        
-           
-        backgroundColor = .clear
         contentView.backgroundColor = .clear
         containerView.backgroundColor = .clear
 
@@ -32,20 +29,10 @@ class HourlyCell: UICollectionViewCell, Configurable {
         
         
         let date = Date(timeIntervalSince1970: TimeInterval(item.dt))
-        let formatter = DateFormatter()
-        formatter.dateFormat = "ha"
-        formatter.amSymbol = "AM"
-        formatter.pmSymbol = "PM"
-        timeLabel.text = formatter.string(from: date)
-        
-       
+        timeLabel.text = date.formattedHourlyTime()
         tempLabel.text = "\(Int(item.main.temp))°"
-        
-       
         let condition = item.weather.first?.main.lowercased() ?? "clear"
-           let type = WeatherType(rawValue: condition) ?? .clouds
-
-        
+        let type = WeatherType(rawValue: condition) ?? .clouds
         weatherImage.image = type.icon
         weatherImage.tintColor = .white
     }
