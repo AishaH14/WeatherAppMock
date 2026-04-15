@@ -6,14 +6,14 @@
 //
 import UIKit
 
-enum WeatherType: String {
+enum WeatherType: String, Codable, Sendable {
     
-    case clear = "Clear"
-    case clouds = "Clouds"
-    case rain = "Rain"
-    case drizzle = "Drizzle"
-    case thunderstorm = "Thunderstorm"
-    case snow = "Snow"
+    case clear = "clear"
+    case clouds = "clouds"
+    case rain = "rain"
+    case drizzle = "drizzle"
+    case thunderstorm = "thunderstorm"
+    case snow = "snow"
     
     var text: String {
         switch self {

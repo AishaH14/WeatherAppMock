@@ -15,6 +15,7 @@ class WeatherViewController: UIViewController {
     var isShowingSearch = false
     private let viewModel = WeatherViewModel()
     var hourlyForecast: [ForecastItem] = []
+    private var dailyForecastItems: [DailyForecastItem] = []
     let locationManager = CLLocationManager()
     let loadingIndicator = UIActivityIndicatorView(style: .large)
     @IBOutlet weak var searchBar: UISearchBar!
@@ -40,28 +41,27 @@ class WeatherViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [
             .foregroundColor: UIColor.white
         ]
-
+        
         tableView.register(
             UINib(nibName: Constants.hourlySectionCell, bundle: nil),
             forCellReuseIdentifier: Constants.hourlySectionCell
         )
-
+        
         tableView.register(
             UINib(nibName: Constants.dailyForecastCell, bundle: nil),
             forCellReuseIdentifier: Constants.dailyForecastCell
         )
-
+        
         tableView.register(
             UINib(nibName: Constants.weatherInfoCell, bundle: nil),
             forCellReuseIdentifier: Constants.weatherInfoCell
         )
-
+        
         tableView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
-
         setupSearchBar()
         setupLoadingIndicator()
         updateBackground()
-       
+        loadDailyForecast()
         currentInfoView.isUserInteractionEnabled = true
         currentInfoView.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(openWeatherDetail))
@@ -152,7 +152,18 @@ class WeatherViewController: UIViewController {
             }
         }
     }
+    private func loadDailyForecast() {
+        Task { [weak self] in
+            guard let self = self else { return }
 
+            do {
+                self.dailyForecastItems = try await DailyForecastLoader.load()
+                self.tableView.reloadData()
+            } catch {
+                print(error)
+            }
+        }
+    }
     func fetchCurrentWeather(lat: Double, lon: Double) {
         DispatchQueue.main.async {
             self.loadingIndicator.startAnimating()
@@ -311,8 +322,7 @@ extension WeatherViewController: UITableViewDataSource {
             ) as? DailyForecastCell else {
                 return UITableViewCell()
             }
-
-            cell.configure(with: DailyForecastData.items)
+            cell.configure(with: dailyForecastItems)
             return cell
 
         case .weatherInfo:

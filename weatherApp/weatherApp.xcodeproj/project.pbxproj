@@ -52,6 +52,11 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		CA79B9562F8E937F00631ACE /* Helpers */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		CA8E89262F7C635800B24430 /* ViewModels */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ViewModels;
@@ -81,6 +86,7 @@
 		CAAB985C2F58457E008D4548 = {
 			isa = PBXGroup;
 			children = (
+				CA79B9562F8E937F00631ACE /* Helpers */,
 				CA7651152F87E7EC007EF34A /* Utilities */,
 				CA71E97C2F7D488F00DEE8DD /* Network */,
 				CA8E89262F7C635800B24430 /* ViewModels */,
@@ -118,6 +124,7 @@
 				CA2C840E2F5FB87F0076143E /* Resources */,
 				CA2C84102F5FB8910076143E /* APP */,
 				CA71E97C2F7D488F00DEE8DD /* Network */,
+				CA79B9562F8E937F00631ACE /* Helpers */,
 				CA8E89262F7C635800B24430 /* ViewModels */,
 			);
 			name = weatherApp;

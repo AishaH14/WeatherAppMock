@@ -8,7 +8,6 @@ import Foundation
 
 final class WeatherService {
     
-     let apiKey = AppConfig.apiKey
     let requestBuilder = URLRequestBuilder(apiKey: AppConfig.apiKey)
     
     func fetchCurrentWeather(

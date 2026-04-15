@@ -42,11 +42,12 @@ class HourlyCell: UICollectionViewCell, Configurable {
         tempLabel.text = "\(Int(item.main.temp))°"
         
        
-        let condition = item.weather.first?.main ?? "Clear"
-        let type = WeatherType(rawValue: condition)
+        let condition = item.weather.first?.main.lowercased() ?? "clear"
+           let type = WeatherType(rawValue: condition) ?? .clouds
+
         
-        weatherImage.image = type?.icon
-        weatherImage.tintColor = type?.color
+        weatherImage.image = type.icon
+        weatherImage.tintColor = .white
     }
         
     }

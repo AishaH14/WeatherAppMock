@@ -1,0 +1,62 @@
+[
+  {
+    "day": "Today",
+    "minTemp": "24°",
+    "maxTemp": "33°",
+    "weatherType": "clear"
+  },
+  {
+    "day": "Fri",
+    "minTemp": "22°",
+    "maxTemp": "31°",
+    "weatherType": "clear"
+  },
+  {
+    "day": "Sat",
+    "minTemp": "23°",
+    "maxTemp": "32°",
+    "weatherType": "clouds"
+  },
+  {
+    "day": "Sun",
+    "minTemp": "25°",
+    "maxTemp": "34°",
+    "weatherType": "drizzle"
+  },
+  {
+    "day": "Mon",
+    "minTemp": "21°",
+    "maxTemp": "30°",
+    "weatherType": "rain"
+  },
+  {
+    "day": "Tue",
+    "minTemp": "22°",
+    "maxTemp": "29°",
+    "weatherType": "drizzle"
+  },
+  {
+    "day": "Wed",
+    "minTemp": "24°",
+    "maxTemp": "33°",
+    "weatherType": "clear"
+  },
+  {
+    "day": "Thu",
+    "minTemp": "23°",
+    "maxTemp": "32°",
+    "weatherType": "thunderstorm"
+  },
+  {
+    "day": "Fri",
+    "minTemp": "22°",
+    "maxTemp": "31°",
+    "weatherType": "clear"
+  },
+  {
+    "day": "Sat",
+    "minTemp": "18°",
+    "maxTemp": "30°",
+    "weatherType": "clouds"
+  }
+]
