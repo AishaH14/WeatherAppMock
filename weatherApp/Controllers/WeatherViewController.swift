@@ -25,6 +25,10 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var conditionLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var weatherBackgroundImageView: UIImageView!
+    @IBOutlet private weak var mapButton: UIButton!
+    @IBAction private func mapButtonTapped(_ sender: UIButton) {
+        openMapScreen()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = ""
@@ -66,6 +70,11 @@ class WeatherViewController: UIViewController {
         currentInfoView.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(openWeatherDetail))
         )
+        
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        configureMapButton()
     }
     func updateBackground() {
         let hour = Calendar.current.component(.hour, from: Date())
@@ -251,6 +260,17 @@ class WeatherViewController: UIViewController {
         @unknown default:
             loadFallbackCity()
         }
+        
+    }
+    private func openMapScreen() {
+    let mapViewController = MapViewController()
+        navigationController?.pushViewController(mapViewController, animated: true)
+    }
+    private func configureMapButton() {
+        mapButton.layoutIfNeeded()
+        mapButton.layer.cornerRadius = mapButton.bounds.height / 2
+        mapButton.clipsToBounds = true
+        mapButton.backgroundColor = UIColor.white.withAlphaComponent(0.3)
     }
 }
 
