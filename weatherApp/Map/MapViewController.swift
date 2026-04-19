@@ -24,6 +24,16 @@ private extension MapViewController {
     
     func configureMapView() {
         mapView.showsUserLocation = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleMapTap(_:)))
+        mapView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    @objc private func handleMapTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        let touchPoint = gestureRecognizer.location(in: mapView)
+        let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        mapView.removeAnnotations(mapView.annotations)
+        mapView.addAnnotation(annotation)
     }
 }
 extension MapViewController: CLLocationManagerDelegate {
