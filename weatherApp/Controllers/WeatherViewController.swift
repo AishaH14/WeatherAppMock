@@ -18,6 +18,11 @@ class WeatherViewController: UIViewController {
     private var dailyForecastItems: [DailyForecastItem] = []
     let locationManager = CLLocationManager()
     let loadingIndicator = UIActivityIndicatorView(style: .large)
+    var selectedLatitude: Double?
+    var selectedLongitude: Double?
+    private var hasSelectedCoordinates: Bool {
+        selectedLatitude != nil && selectedLongitude != nil
+    }
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var currentInfoView: UIView!
     @IBOutlet weak var cityLabel: UILabel!
@@ -390,6 +395,11 @@ extension WeatherViewController: CLLocationManagerDelegate {
     }
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if let coordinate = selectedCoordinate() {
+            fetchCurrentWeather(lat: coordinate.lat, lon: coordinate.lon)
+            fetchForecast(lat: coordinate.lat, lon: coordinate.lon)
+            return
+        }
         switch manager.authorizationStatus {
         case .authorizedWhenInUse, .authorizedAlways:
             manager.requestLocation()
@@ -402,7 +412,17 @@ extension WeatherViewController: CLLocationManagerDelegate {
         }
     }
 }
-
+private extension WeatherViewController {
+    
+    func selectedCoordinate() -> (lat: Double, lon: Double)? {
+        guard let selectedLatitude,
+              let selectedLongitude else {
+            return nil
+        }
+        
+        return (lat: selectedLatitude, lon: selectedLongitude)
+    }
+}
 private enum WeatherRow: Int, CaseIterable {
     case hourly
     case dailyForecast
