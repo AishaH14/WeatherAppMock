@@ -9,6 +9,8 @@ import Foundation
 
 enum Constants {
     static let weatherViewController = "WeatherViewController"
+    static let currentWeatherCell = "CurrentWeatherCell"
+    static let currentWeatherCardView = "CurrentWeatherCardView"
     static let hourlySectionCell = "HourlySectionCell"
     static let dailyForecastCell = "DailyForecastCell"
     static let weatherInfoCell = "WeatherInfoCell"
