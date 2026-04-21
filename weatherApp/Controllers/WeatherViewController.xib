@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WeatherViewController" customModule="weatherApp" customModuleProvider="target">
+            <connections>
+                <outlet property="currentInfoView" destination="CwI-y7-86O" id="eSH-Xj-e0M"/>
+                <outlet property="mapButton" destination="kHR-D8-Viz" id="4eD-eR-2Zc"/>
+                <outlet property="searchBar" destination="5aM-yJ-1XO" id="Qcp-P6-LGC"/>
+                <outlet property="tableView" destination="QC7-A4-KOK" id="zdp-ZW-pIs"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Ecn-4C-NVI"/>
+                <outlet property="weatherBackgroundImageView" destination="ZBj-I0-ifF" id="UUR-hL-X7g"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleAspectFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBj-I0-ifF">
+                    <rect key="frame" x="0.0" y="0.0" width="428" height="940"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CwI-y7-86O" userLabel="headerView" customClass="CurrentWeatherCardView" customModule="weatherApp" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="132" width="393" height="128"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <tableView opaque="NO" clipsSubviews="YES" alpha="0.94999999999999996" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="always" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="QC7-A4-KOK">
+                    <rect key="frame" x="0.0" y="208" width="393" height="644"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <viewLayoutGuide key="contentLayoutGuide" id="kgJ-VT-WWu"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="Kg6-IJ-REZ"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="o3o-1h-6T4"/>
+                        <outlet property="delegate" destination="-1" id="QLc-hU-Jbh"/>
+                    </connections>
+                </tableView>
+                <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="5aM-yJ-1XO">
+                    <rect key="frame" x="1" y="78" width="393" height="44"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="22h-PQ-VRL"/>
+                    </constraints>
+                    <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <offsetWrapper key="searchTextPositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="BFd-Ue-iIG"/>
+                    </connections>
+                </searchBar>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHR-D8-Viz" userLabel="Map">
+                    <rect key="frame" x="308" y="728" width="56" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="56" id="6SC-J4-TeA"/>
+                        <constraint firstAttribute="height" constant="56" id="WBv-Ua-LU4"/>
+                    </constraints>
+                    <buttonConfiguration key="configuration" style="plain">
+                        <imageReference key="image" image="map.fill" catalog="system" symbolScale="large"/>
+                        <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
+                        <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="mapButtonTapped:" destination="-1" eventType="touchUpInside" id="qfW-ZB-uVl"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="9Jc-yN-FEv"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="QC7-A4-KOK" firstAttribute="leading" secondItem="9Jc-yN-FEv" secondAttribute="leading" id="41C-CD-8Yj"/>
+                <constraint firstItem="QC7-A4-KOK" firstAttribute="top" secondItem="5aM-yJ-1XO" secondAttribute="bottom" constant="86" id="9xf-X8-wxU"/>
+                <constraint firstAttribute="trailing" secondItem="5aM-yJ-1XO" secondAttribute="trailing" constant="-1" id="Fhl-yX-Oot"/>
+                <constraint firstAttribute="trailing" secondItem="ZBj-I0-ifF" secondAttribute="trailing" constant="-35" id="GMf-QT-yxz"/>
+                <constraint firstItem="5aM-yJ-1XO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="1" id="Jmc-KF-aXz"/>
+                <constraint firstItem="ZBj-I0-ifF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Q7Y-Sl-Ydm"/>
+                <constraint firstItem="QC7-A4-KOK" firstAttribute="leading" secondItem="ZBj-I0-ifF" secondAttribute="leading" id="SRP-QI-aXW"/>
+                <constraint firstItem="CwI-y7-86O" firstAttribute="leading" secondItem="9Jc-yN-FEv" secondAttribute="leading" id="V0w-u0-WWO"/>
+                <constraint firstItem="5aM-yJ-1XO" firstAttribute="top" secondItem="9Jc-yN-FEv" secondAttribute="top" constant="-40" id="hVe-9F-pmp"/>
+                <constraint firstItem="9Jc-yN-FEv" firstAttribute="trailing" secondItem="kHR-D8-Viz" secondAttribute="trailing" constant="29" id="hWG-E2-LPC"/>
+                <constraint firstAttribute="bottom" secondItem="QC7-A4-KOK" secondAttribute="bottom" id="mFz-ld-b4y"/>
+                <constraint firstItem="CwI-y7-86O" firstAttribute="top" secondItem="5aM-yJ-1XO" secondAttribute="bottom" constant="10" id="ne9-Ye-xe2"/>
+                <constraint firstItem="QC7-A4-KOK" firstAttribute="trailing" secondItem="9Jc-yN-FEv" secondAttribute="trailing" id="nyR-8A-zRR"/>
+                <constraint firstItem="9Jc-yN-FEv" firstAttribute="trailing" secondItem="CwI-y7-86O" secondAttribute="trailing" id="obu-wF-PHQ"/>
+                <constraint firstItem="kHR-D8-Viz" firstAttribute="bottom" secondItem="9Jc-yN-FEv" secondAttribute="bottom" id="pmT-Vq-JKN"/>
+                <constraint firstAttribute="bottom" secondItem="ZBj-I0-ifF" secondAttribute="bottom" constant="-88" id="rzF-C1-atA"/>
+                <constraint firstItem="9Jc-yN-FEv" firstAttribute="bottom" secondItem="CwI-y7-86O" secondAttribute="bottom" constant="524" id="uZ2-mA-dxc"/>
+            </constraints>
+            <point key="canvasLocation" x="136.64122137404578" y="153.52112676056339"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="map.fill" catalog="system" width="128" height="110"/>
+    </resources>
+</document>

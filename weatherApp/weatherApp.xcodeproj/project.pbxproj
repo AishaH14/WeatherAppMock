@@ -6,27 +6,71 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CA4031852F979F8500B54677 /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = CA4031842F979F8500B54677 /* SwiftMessages */; };
+		CA7651172F87EA9D007EF34A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7651162F87E806007EF34A /* Constants.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
-		CAAB98652F58457E008D4548 /* weatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA6FA85E2F5FCD5500E20C59 /* weatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA6FA8612F5FCF4100E20C59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA7651162F87E806007EF34A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		CAAB98772F58457F008D4548 /* Exceptions for "weatherApp" folder in "weatherApp" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = CAAB98642F58457E008D4548 /* weatherApp */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		CAAB98672F58457E008D4548 /* weatherApp */ = {
+		CA2C840A2F5FB7BB0076143E /* Models */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				CAAB98772F58457F008D4548 /* Exceptions for "weatherApp" folder in "weatherApp" target */,
-			);
-			path = weatherApp;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CA2C840B2F5FB7D80076143E /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CA2C840C2F5FB8310076143E /* Controllers */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CA2C840D2F5FB8560076143E /* Services */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CA2C840E2F5FB87F0076143E /* Resources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CA2C84102F5FB8910076143E /* APP */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = APP;
+			sourceTree = "<group>";
+		};
+		CA71E97C2F7D488F00DEE8DD /* Network */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Network;
+			sourceTree = "<group>";
+		};
+		CA79B9562F8E937F00631ACE /* Helpers */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		CA79B95D2F8F8E8900631ACE /* Extensions */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CA79B9722F90D48200631ACE /* Map */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Map;
+			sourceTree = "<group>";
+		};
+		CA8E89262F7C635800B24430 /* ViewModels */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -36,26 +80,39 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA4031852F979F8500B54677 /* SwiftMessages in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CA7651152F87E7EC007EF34A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				CA7651162F87E806007EF34A /* Constants.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		CAAB985C2F58457E008D4548 = {
 			isa = PBXGroup;
 			children = (
-				CAAB98672F58457E008D4548 /* weatherApp */,
-				CAAB98662F58457E008D4548 /* Products */,
+				CA79B9722F90D48200631ACE /* Map */,
+				CA79B95D2F8F8E8900631ACE /* Extensions */,
+				CA79B9562F8E937F00631ACE /* Helpers */,
+				CA7651152F87E7EC007EF34A /* Utilities */,
+				CA71E97C2F7D488F00DEE8DD /* Network */,
+				CA8E89262F7C635800B24430 /* ViewModels */,
+				CA2C84102F5FB8910076143E /* APP */,
+				CA2C840E2F5FB87F0076143E /* Resources */,
+				CA2C840D2F5FB8560076143E /* Services */,
+				CA2C840C2F5FB8310076143E /* Controllers */,
+				CA2C840B2F5FB7D80076143E /* Views */,
+				CA2C840A2F5FB7BB0076143E /* Models */,
+				CA6FA85E2F5FCD5500E20C59 /* weatherApp.app */,
+				CA6FA8612F5FCF4100E20C59 /* Info.plist */,
 			);
-			sourceTree = "<group>";
-		};
-		CAAB98662F58457E008D4548 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CAAB98652F58457E008D4548 /* weatherApp.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,13 +131,24 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				CAAB98672F58457E008D4548 /* weatherApp */,
+				CA2C840A2F5FB7BB0076143E /* Models */,
+				CA2C840B2F5FB7D80076143E /* Views */,
+				CA2C840C2F5FB8310076143E /* Controllers */,
+				CA2C840D2F5FB8560076143E /* Services */,
+				CA2C840E2F5FB87F0076143E /* Resources */,
+				CA2C84102F5FB8910076143E /* APP */,
+				CA71E97C2F7D488F00DEE8DD /* Network */,
+				CA79B9562F8E937F00631ACE /* Helpers */,
+				CA79B95D2F8F8E8900631ACE /* Extensions */,
+				CA79B9722F90D48200631ACE /* Map */,
+				CA8E89262F7C635800B24430 /* ViewModels */,
 			);
 			name = weatherApp;
 			packageProductDependencies = (
+				CA4031842F979F8500B54677 /* SwiftMessages */,
 			);
 			productName = weatherApp;
-			productReference = CAAB98652F58457E008D4548 /* weatherApp.app */;
+			productReference = CA6FA85E2F5FCD5500E20C59 /* weatherApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -107,8 +175,11 @@
 			);
 			mainGroup = CAAB985C2F58457E008D4548;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				CA4031832F979F8500B54677 /* XCRemoteSwiftPackageReference "SwiftMessages" */,
+			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = CAAB98662F58457E008D4548 /* Products */;
+			productRefGroup = CAAB985C2F58457E008D4548;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -132,6 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA7651172F87EA9D007EF34A /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,10 +218,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = weatherApp/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -177,10 +247,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = weatherApp/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -341,6 +409,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CA4031832F979F8500B54677 /* XCRemoteSwiftPackageReference "SwiftMessages" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftKickMobile/SwiftMessages.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CA4031842F979F8500B54677 /* SwiftMessages */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA4031832F979F8500B54677 /* XCRemoteSwiftPackageReference "SwiftMessages" */;
+			productName = SwiftMessages;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CAAB985D2F58457E008D4548 /* Project object */;
 }
