@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA4031852F979F8500B54677 /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = CA4031842F979F8500B54677 /* SwiftMessages */; };
 		CA7651172F87EA9D007EF34A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7651162F87E806007EF34A /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA4031852F979F8500B54677 /* SwiftMessages in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +145,7 @@
 			);
 			name = weatherApp;
 			packageProductDependencies = (
+				CA4031842F979F8500B54677 /* SwiftMessages */,
 			);
 			productName = weatherApp;
 			productReference = CA6FA85E2F5FCD5500E20C59 /* weatherApp.app */;
@@ -173,6 +176,7 @@
 			mainGroup = CAAB985C2F58457E008D4548;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				CA4031832F979F8500B54677 /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CAAB985C2F58457E008D4548;
@@ -405,6 +409,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CA4031832F979F8500B54677 /* XCRemoteSwiftPackageReference "SwiftMessages" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftKickMobile/SwiftMessages.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CA4031842F979F8500B54677 /* SwiftMessages */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA4031832F979F8500B54677 /* XCRemoteSwiftPackageReference "SwiftMessages" */;
+			productName = SwiftMessages;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CAAB985D2F58457E008D4548 /* Project object */;
 }

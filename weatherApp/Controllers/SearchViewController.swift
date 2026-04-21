@@ -133,7 +133,7 @@ class SearchViewController: UIViewController   {
     }
 }
 
-    extension SearchViewController: UISearchBarDelegate {
+extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterCities(with: searchText)
     }
@@ -143,8 +143,15 @@ class SearchViewController: UIViewController   {
         
         guard !text.isEmpty else { return }
         
-        onCitySelected?(text)
-        dismiss(animated: true)
+        guard let matchedCity = cities.first(where: {
+            $0.lowercased() == text.lowercased()
+        }) else {
+            MessagePresenter.showError("City not found")
+            return
+        }
+        
+        onCitySelected?(matchedCity)
+        navigationController?.popViewController(animated: true)
     }
 }
     extension SearchViewController: UITableViewDataSource {

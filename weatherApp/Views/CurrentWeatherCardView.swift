@@ -9,38 +9,37 @@ import UIKit
 
 final class CurrentWeatherCardView: UIView {
 
-//    @IBOutlet var contentView: UIView!
+    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var temperatureLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet weak var conditionLabel: UILabel!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        commonInit()
+        commonInit()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-//        commonInit()
+        commonInit()
     }
 
-//    private func commonInit() {
-//        addSubview(contentView)
-//        contentView.frame = bounds
-//        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        backgroundColor = .clear
-//        contentView.backgroundColor = .clear
-//    }
+    private func commonInit() {
+        let nib = UINib(nibName: Constants.currentWeatherCardView, bundle: nil)
+        nib.instantiate(withOwner: self, options: nil)
 
-    func configure(with weather: WeatherResponse) {
-        cityLabel.text = weather.name
-        temperatureLabel.text = "\(Int(weather.main.temp))°"
-        descriptionLabel.text = weather.weather.first?.description.capitalized ?? "Clear"
+        guard let contentView else { return }
+
+        addSubview(contentView)
+        contentView.frame = bounds
+        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
     }
 
-    func configure(city: String, temperature: String, description: String) {
+    func configure(city: String, temp: String, condition: String) {
         cityLabel.text = city
-        temperatureLabel.text = temperature
-        descriptionLabel.text = description
+        tempLabel.text = temp
+        conditionLabel.text = condition
     }
 }

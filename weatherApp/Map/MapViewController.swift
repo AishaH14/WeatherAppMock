@@ -13,35 +13,29 @@ final class MapViewController: UIViewController {
     @IBOutlet private weak var mapView: MKMapView!
 
     private let locationManager = CLLocationManager()
-    private let weatherService = WeatherService()
-
-    private var selectedWeatherResponse: WeatherResponse?
+    private let viewModel = MapWeatherViewModel()
     private var selectedCoordinate: CLLocationCoordinate2D?
     private var hideCardWorkItem: DispatchWorkItem?
 
-    private lazy var weatherCard: CurrentWeatherCell = {
-        let nib = UINib(nibName: Constants.currentWeatherCell, bundle: nil)
-        guard let cell = nib.instantiate(withOwner: nil, options: nil).first as? CurrentWeatherCell else {
-            assertionFailure( "CurrentWeatherCell not found")
-            return CurrentWeatherCell() }
+    private lazy var weatherCard: CurrentWeatherCardView = {
+        let card = CurrentWeatherCardView()
 
-        cell.backgroundColor = .clear
-        cell.contentView.backgroundColor = .clear
-        cell.isHidden = true
-        cell.alpha = 0
-        cell.isUserInteractionEnabled = true
+        card.backgroundColor = .clear
+        card.isHidden = true
+        card.alpha = 0
+        card.isUserInteractionEnabled = true
 
-        if let headerView = cell.viewWithTag(100) {
+        if let headerView = card.contentView {
             headerView.layer.cornerRadius = 24
             headerView.layer.masksToBounds = true
             headerView.backgroundColor = UIColor.darkGray.withAlphaComponent(0.5)
         }
 
-        cell.addGestureRecognizer(
+        card.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(openWeatherPopup))
         )
 
-        return cell
+        return card
     }()
 
     override func viewDidLoad() {
@@ -134,8 +128,8 @@ private extension MapViewController {
         hideCardWorkItem?.cancel()
         weatherCard.alpha = 1
         weatherCard.isHidden = true
-
-        weatherService.fetchCurrentWeather(
+        LoadingPresenter.show(on: self.view)
+        viewModel.loadCurrentWeather(
             lat: coordinate.latitude,
             lon: coordinate.longitude
         ) { [weak self] result in
@@ -143,13 +137,19 @@ private extension MapViewController {
 
             DispatchQueue.main.async {
                 switch result {
-                case .success(let weatherResponse):
-                    self.selectedWeatherResponse = weatherResponse
-                    self.weatherCard.configure(with: weatherResponse)
+                case .success:
+                    LoadingPresenter.hide(from: self.view)
+                    guard let weatherResponse = self.viewModel.currentWeather else { return }
+                    self.weatherCard.configure(
+                        city: weatherResponse.name,
+                        temp: "\(Int(weatherResponse.main.temp))°",
+                        condition: weatherResponse.weather.first?.description.capitalized ?? "Clear"
+                    )
                     self.showWeatherCard()
 
                 case .failure(let error):
-                    print("fetchCurrentWeather failed: \(error.localizedDescription)")
+                    LoadingPresenter.hide(from: self.view)
+                    MessagePresenter.showError(error.localizedDescription)
                 }
             }
         }
@@ -166,7 +166,7 @@ private extension MapViewController {
 
     @objc func openWeatherPopup() {
         let weatherViewController = WeatherViewController(
-            nibName: "WeatherViewController",
+            nibName: Constants.weatherViewController,
             bundle: nil
         )
 
