@@ -22,7 +22,6 @@ class SearchViewController: UIViewController   {
         super.viewDidLoad()
         
         tableView.dataSource = self
-        tableView.delegate = self
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = .clear
         tableView.isOpaque = false

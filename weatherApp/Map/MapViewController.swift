@@ -98,8 +98,8 @@ private extension MapViewController {
             self.weatherCard.transform = .identity
         }
 
-        let workItem = DispatchWorkItem { [weak self] in
-            self?.hideWeatherCard()
+        let workItem = DispatchWorkItem {
+            self.hideWeatherCard()
         }
 
         hideCardWorkItem = workItem

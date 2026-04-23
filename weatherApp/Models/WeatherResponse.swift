@@ -32,5 +32,6 @@ struct ForecastItem: Codable {
 struct WeatherCondition: Codable {
     let main: String
     let description: String
+    let degree: String
     let icon: String?
 }

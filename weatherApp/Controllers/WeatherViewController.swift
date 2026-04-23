@@ -129,11 +129,9 @@ class WeatherViewController: UIViewController {
     private func handleForecastResult(_ result: Result<Void, Error>) {
         switch result {
         case .success:
-            DispatchQueue.main.async {
-                guard let forecastList = self.viewModel.forecast?.list else { return }
-                self.hourlyForecast = Array(forecastList.prefix(8))
-                self.tableView.reloadData()
-            }
+            guard let forecastList = self.viewModel.forecast?.list else { return }
+            self.hourlyForecast = Array(forecastList.prefix(8))
+            self.tableView.reloadData()
 
         case .failure(let error):
             DispatchQueue.main.async {

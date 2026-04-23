@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,7 +21,7 @@
                         <rect key="frame" x="-2" y="16" width="387" height="412"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's Forecast" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jfq-fv-zDK">
-                                <rect key="frame" x="16" y="12" width="355" height="21"/>
+                                <rect key="frame" x="241.66666666666663" y="12" width="129.33333333333337" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -46,7 +46,6 @@
                             <constraint firstAttribute="bottom" secondItem="cNO-MW-Ge6" secondAttribute="bottom" id="XgB-dY-DXi"/>
                             <constraint firstItem="Jfq-fv-zDK" firstAttribute="top" secondItem="vXP-rl-Eeb" secondAttribute="top" constant="12" id="cgJ-W9-2a2"/>
                             <constraint firstItem="cNO-MW-Ge6" firstAttribute="leading" secondItem="vXP-rl-Eeb" secondAttribute="leading" id="gf2-1F-AKW"/>
-                            <constraint firstItem="Jfq-fv-zDK" firstAttribute="leading" secondItem="vXP-rl-Eeb" secondAttribute="leading" constant="16" id="kjp-OP-2Cc"/>
                             <constraint firstAttribute="trailing" secondItem="cNO-MW-Ge6" secondAttribute="trailing" id="lTb-Yq-BVB"/>
                             <constraint firstAttribute="trailing" secondItem="Jfq-fv-zDK" secondAttribute="trailing" constant="16" id="lYd-99-0VI"/>
                             <constraint firstItem="xe0-pe-Dcb" firstAttribute="leading" secondItem="vXP-rl-Eeb" secondAttribute="leading" constant="16" id="qMO-lr-OWd"/>
