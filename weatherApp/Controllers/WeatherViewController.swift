@@ -192,8 +192,7 @@ class WeatherViewController: UIViewController {
         let searchVC = SearchViewController(nibName: "SearchViewController", bundle: nil)
         searchVC.initialSearchText = initialText
 
-        searchVC.onCitySelected = { [weak self] city in
-            guard let self = self else { return }
+        searchVC.onCitySelected = { city in
             self.searchBar.text = city
             self.fetchCurrentWeather(for: city)
             self.fetchForecast(for: city)
