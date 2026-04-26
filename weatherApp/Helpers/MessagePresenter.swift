@@ -23,7 +23,7 @@ enum MessagePresenter {
         
         var config = SwiftMessages.defaultConfig
         config.presentationStyle = .top
-        config.duration = .seconds(seconds: 2.5)
+        config.duration = .forever
         config.dimMode = .none
         
         SwiftMessages.show(config: config, view: view)
@@ -42,7 +42,7 @@ enum MessagePresenter {
         
         var config = SwiftMessages.defaultConfig
         config.presentationStyle = .top
-        config.duration = .seconds(seconds: 2.5)
+        config.duration = .forever
         config.dimMode = .none
         
         SwiftMessages.show(config: config, view: view)

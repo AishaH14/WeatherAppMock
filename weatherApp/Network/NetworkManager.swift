@@ -33,7 +33,7 @@ final class NetworkManager {
                 return
             }
             
-            guard httpResponse.statusCode == 200 else {
+            guard httpResponse.statusCode == 201 else {
                 completion(.failure(NetworkError.httpError(statusCode: httpResponse.statusCode)))
                 return
             }
